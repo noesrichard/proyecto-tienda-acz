@@ -12,8 +12,8 @@ CORS(app)
 def create_app():
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
-    from .api_catalog.urls import api_catalog
+    from .catalog.urls import catalog
 
-    app.register_blueprint(api_catalog)
+    app.register_blueprint(catalog)
 
     return app
