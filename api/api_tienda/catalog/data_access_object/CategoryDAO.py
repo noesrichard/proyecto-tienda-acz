@@ -1,6 +1,5 @@
 
-from api_tienda.api_catalog.data_access_object.DAO import DAO
-
+from .DAO import DAO
 
 class CategoryDAO(DAO):
 

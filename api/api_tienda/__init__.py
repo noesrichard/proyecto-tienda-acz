@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_cors import CORS, cross_origin
 from .DbConnection import DBConnection
-from .config import BDConfig, ClearDBConfig
+from .config import BDConfig
 
 app = Flask(__name__)
-app.config.from_object(ClearDBConfig)
+app.config.from_object(BDConfig)
 db = DBConnection(app)
 CORS(app)
 
