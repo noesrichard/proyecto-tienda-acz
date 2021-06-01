@@ -105,5 +105,6 @@ def delete_brand(id_bra):
 
 @catalog.route('/catalog/brands/<int:id_bra>', methods=['PUT'])
 def update_brand(id_bra):
-    BrandDAO(brand=Brand(id_bra=id_bra)).update()
+    data = request.get_json()
+    BrandDAO(brand=Brand(id_bra=id_bra, **data)).update()
     return "200 OK PUT"
