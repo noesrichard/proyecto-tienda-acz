@@ -1,6 +1,4 @@
-
-
-from api.api_tienda import db
+from api_tienda import db
 
 
 class DAO:
