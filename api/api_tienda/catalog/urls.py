@@ -4,6 +4,7 @@ from api_tienda.models.Brand import Brand
 from api_tienda.models.Category import Category
 from api_tienda.models.Product import Product
 from api_tienda.data_access.CategoryDAO import CategoryDAO
+from .utils import response
 from flask import jsonify, Blueprint, request
 
 catalog = Blueprint('api_catalog', __name__)
@@ -14,18 +15,18 @@ def get_categories():
     return jsonify(CategoryDAO().get_all())
 
 
-@catalog.route('/catalog/create-category', methods=['POST'])
+@catalog.route('/catalog/categories/create-category', methods=['POST'])
 def create_category():
     data = request.get_json()
-    CategoryDAO(category=Category(**data)).save()
-    return "Done"
+    category = CategoryDAO(category=Category(**data))
+    return response(method=request.method, entity=category)
 
 
-@catalog.route('/catalog/update-category', methods=['PUT'])
-def update_category():
+@catalog.route('/catalog/categories/<int:id_cat>', methods=['PUT', 'DELETE', 'GET'])
+def categories(id_cat):
     data = request.get_json()
-    CategoryDAO(category=Category(**data)).update()
-    return "Done"
+    category = CategoryDAO(category=Category(id_cat=id_cat, **data))
+    return response(method=request.method, entity=category)
 
 
 @catalog.route('/catalog/products', methods=['GET'])
@@ -92,11 +93,4 @@ def delete_brand():
 def delete_product():
     data = request.get_json()
     ProductDAO(product=Product(**data)).delete()
-    return "Done"
-
-
-@catalog.route('/catalog/delete-category', methods=['DELETE'])
-def delete_category():
-    data = request.get_json()
-    CategoryDAO(category=Category(**data)).delete()
     return "Done"
