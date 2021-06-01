@@ -1,8 +1,6 @@
 from flask import Blueprint, request, jsonify
-from .data_access_object.CartDAO import CartDAO
-from .data_access_object.UserDAO import UserDAO
-from .model.Cart import Cart
-from .model.User import User
+from api_tienda.data_access.CartDAO import CartDAO
+from api_tienda.models.User import User
 users = Blueprint('users', __name__)
 
 
