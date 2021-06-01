@@ -11,8 +11,7 @@ class CategoryDAO(DAO):
         super()._save(f"null,'{self.__category.get_name()}','{self.__category.get_description()}'")
 
     def update(self):
-        super()._update(
-            sql_params=f"nam_cat='{self.__category.get_name()}', des_cat='{self.__category.get_description()}' "
+        super()._update(sql_params=f"nam_cat='{self.__category.get_name()}', des_cat='{self.__category.get_description()}' "
                        f"WHERE id_cat={self.__category.get_id()}")
 
     def delete(self):
