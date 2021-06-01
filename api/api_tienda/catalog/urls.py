@@ -34,7 +34,7 @@ def delete_category(id_cat):
     return "200 OK DELETE"
 
 
-@catalog.route('/catalog/categories/<int:id_cat', methods=['GET'])
+@catalog.route('/catalog/categories/<int:id_cat>', methods=['GET'])
 def get_category(id_cat):
     return jsonify(CategoryDAO(category=Category(id_cat=id_cat)).get_one_by_id())
 
