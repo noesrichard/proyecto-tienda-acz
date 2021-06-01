@@ -16,3 +16,6 @@ class BrandDAO(DAO):
 
     def delete(self):
         super()._delete(condition=f"WHERE id_bra={self.__brand.get_id()}")
+
+    def get_one_by_id(self):
+        return super()._get_one_by(condition=f"WHERE id_bra={self.__brand.get_id}")
