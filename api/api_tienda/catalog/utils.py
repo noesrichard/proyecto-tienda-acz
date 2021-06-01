@@ -7,7 +7,7 @@ def response(method='GET', entity=None):
         entity.save()
         return "200 OK POST"
     elif method == 'PUT':
-        entity.save()
+        entity.update()
         return "200 OK PUT"
     elif method == 'DELETE':
         entity.delete()

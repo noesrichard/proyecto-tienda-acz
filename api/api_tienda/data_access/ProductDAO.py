@@ -15,14 +15,14 @@ class ProductDAO(DAO):
         return super()._get_all_by(condition="INNER JOIN category ON product.id_cat_pro=category.id_cat "
                                              "INNER JOIN brand ON product.id_bra_pro=brand.id_bra;")
 
-    def get_one_by_id(self, id_pro):
-        return super()._get_one_by(f"WHERE id_pro = {id_pro}")
+    def get_one_by_id(self):
+        return super()._get_one_by(f"WHERE id_pro = {self.__product.get_id()}")
 
-    def get_all_by_category(self, id_cat):
-        return super()._get_all_by(f"WHERE id_cat_pro={id_cat}")
+    def get_all_by_category(self):
+        return super()._get_all_by(f"WHERE id_cat_pro={self.__product.get_category()}")
 
-    def get_all_by_brand(self, id_bra):
-        return super()._get_all_by(f"WHERE id_bra_pro={id_bra}")
+    def get_all_by_brand(self):
+        return super()._get_all_by(f"WHERE id_bra_pro={self.__product.get_brand()}")
 
     def update(self):
         super()._update(sql_params=f"nam_pro='{self.__product.get_name()}', des_pro='{self.__product.get_description()}', "
