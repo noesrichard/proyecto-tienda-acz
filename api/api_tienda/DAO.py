@@ -7,6 +7,11 @@ class DAO:
         self.__db = db
         self.__entity_name = entity_name
 
+    def _sql_query(self,sql_query=""):
+        cur = self.__db.get_cursor_no_dict()
+        cur.execute(sql_query)
+        return cur.fetchone()[0]
+
     def get_all(self):
         cur = self.__db.get_cursor()
         cur.execute(f"SELECT * FROM {self.__entity_name};")
@@ -14,8 +19,7 @@ class DAO:
 
     def _save(self, sql_params):
         cur = self.__db.get_cursor()
-        cur.execute(f'''INSERT INTO {self.__entity_name} 
-                VALUES({sql_params});''')
+        cur.execute(f'''INSERT INTO {self.__entity_name} VALUES({sql_params});''')
         cur.connection.commit()
 
     def _get_all_by(self, condition):
@@ -121,7 +125,13 @@ class UserDAO(DAO):
         super().__init__(entity_name='users')
         self.__user = user
 
+    def get_user(self):
+        return self.__user
+
     def save(self):
-        super()._save(sql_params=f"null,'{self.__user.get_email()}', '{self.__user.get_name()}', "
-                                 f"'{self.__user.get_password()}' "
-                                 f"'{self.__user.get_name()}', '{self.__user.get_last_name()}', false ")
+        super()._save(f"'{self.__user.get_email()}', '{self.__user.get_password()}', '{self.__user.get_name()}', "
+                      f"'{self.__user.get_last_name()}', {self.__user.is_verified()} ")
+
+    def is_valid(self):
+        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM users WHERE ema_user='{self.__user.get_email()}' AND"
+                           f" pas_user='{self.__user.get_password()}');")
