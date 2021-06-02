@@ -1,8 +1,9 @@
 from flask import Flask
+import os
 from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
 from .DbConnection import DBConnection
-from .config import BDConfig, ClearDBConfig
+from .config import BDConfig
 
 
 app = Flask(__name__)
@@ -10,7 +11,11 @@ db = DBConnection(app)
 CORS(app)
 auth = HTTPBasicAuth()
 
-app.config.from_object(ClearDBConfig)
+if 'CLEARDB_DATABASE_URL' in os.environ:
+    from .config import ClearDBConfig
+    app.config.from_object(ClearDBConfig)
+else:
+    app.config.from_object(BDConfig)
 
 
 def create_app():
