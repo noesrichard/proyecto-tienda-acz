@@ -117,5 +117,11 @@ class ProductDAO(DAO):
 
 class UserDAO(DAO):
 
-    def __init__(self):
+    def __init__(self, user=None):
         super().__init__(entity_name='users')
+        self.__user = user
+
+    def save(self):
+        super()._save(sql_params=f"null,'{self.__user.get_email()}', '{self.__user.get_name()}', "
+                                 f"'{self.__user.get_password()}' "
+                                 f"'{self.__user.get_name()}', '{self.__user.get_last_name()}', false ")
