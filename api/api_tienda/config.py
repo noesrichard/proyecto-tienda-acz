@@ -9,6 +9,7 @@ class BDConfig(Config):
     MYSQL_PASSWORD = ""
     MYSQL_DB = "tiendav2"
 
+
 if 'CLEARDB_DATABASE_URL' in os.environ:
     class ClearDBConfig(Config):
         urlparse.uses_netloc.append('mysql')
