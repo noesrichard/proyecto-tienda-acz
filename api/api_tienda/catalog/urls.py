@@ -1,9 +1,6 @@
-from api_tienda.data_access.BrandDAO import BrandDAO
-from api_tienda.data_access.ProductDAO import ProductDAO
-from api_tienda.models.Brand import Brand
-from api_tienda.models.Category import Category
-from api_tienda.models.Product import Product
-from api_tienda.data_access.CategoryDAO import CategoryDAO
+
+from api_tienda.entities import  Brand, Category, Product
+from api_tienda.DAO import BrandDAO, CategoryDAO, ProductDAO
 from flask import jsonify, Blueprint, request
 
 catalog = Blueprint('api_catalog', __name__)
