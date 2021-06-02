@@ -3,9 +3,6 @@ class Brand:
         self.__id = kwargs.get('id_bra')
         self.__name = kwargs.get('nam_bra')
 
-    def get_entity_name(self):
-        return self.__entity_name
-
     def get_id(self):
         return self.__id
 
