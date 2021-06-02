@@ -7,8 +7,7 @@ class BDConfig(Config):
     MYSQL_HOST = "localhost"
     MYSQL_USER = "root"
     MYSQL_PASSWORD = ""
-    MYSQL_DB = "tienda"
-
+    MYSQL_DB = "tiendav2"
 
 class ClearDBConfig(Config):
     urlparse.uses_netloc.append('mysql')

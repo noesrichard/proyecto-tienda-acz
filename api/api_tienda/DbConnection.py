@@ -12,3 +12,6 @@ class DBConnection(MySQL):
 
     def get_cursor(self):
         return self.__msyql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    def get_cursor_no_dict(self):
+        return self.__msyql.connection.cursor()
