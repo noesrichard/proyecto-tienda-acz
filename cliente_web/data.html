@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+    </header>
+    <aside>
+        <ul id="aside-ul-categorias">
+            
+        </ul>
+    </aside>
+    <nav id="nav-principal">
+        <script> 
+            var ul = document.getElementById('aside-ul-categorias'); 
+            var username = 'r@hotmail.com'; 
+            var password = '123'; 
+            var auth = window.localStorage.getItem('auth');  
+            var headers = new Headers(); 
+            headers.append('Content-Type', 'text/html')
+            fetch('https://proyecto-tienda-acz.herokuapp.com/user/index',{ 
+                method:'GET', 
+                headers: { 
+                    'Content-Type' : 'text/html',
+                    'Authorization': 'Basic '+ auth
+                }
+            })
+            .then(response => response.text())
+            .then(data => {console.log("Hola"); console.log(data)})
+            .then(error => console.log(error))
+        </script> 
+    </nav>
+</body>
+</html>
