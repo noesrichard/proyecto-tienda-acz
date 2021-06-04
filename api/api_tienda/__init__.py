@@ -29,4 +29,7 @@ def create_app():
     from .users.urls import user
     app.register_blueprint(user)
 
+    from .cart.urls import cart
+    app.register_blueprint(cart)
+
     return app
