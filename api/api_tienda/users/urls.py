@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from api_tienda.DAO import UserDAO
-from api_tienda.entities import User
+from api_tienda.data_access_object import UserDataAccessObject
+from api_tienda.models import User
 from api_tienda import auth
 from .validator import  UserValidator
 
@@ -13,7 +13,7 @@ def user_registration():
     new_user = User(**data)
     is_valid = UserValidator(new_user).validate()
     if is_valid:
-        UserDAO(user=User(**data)).save()
+        UserDataAccessObject(user=User(**data)).save()
         return "200 OK POST"
     return "NO SE REGISTRO"
 
@@ -21,7 +21,7 @@ def user_registration():
 
 @auth.verify_password
 def verify_password(username, password):
-    client_user = UserDAO(User(ema_user=username, pas_user=password))
+    client_user = UserDataAccessObject(User(ema_user=username, pas_user=password))
     if client_user.exists():
         return client_user.get_user()
 
@@ -30,7 +30,7 @@ def verify_password(username, password):
 def login():
     permission = {'permission': False}
     data = request.get_json()
-    if UserDAO(user=User(**data)).exists():
+    if UserDataAccessObject(user=User(**data)).exists():
         permission['permission'] = True
     return jsonify(permission)
 

@@ -1,7 +1,7 @@
 from api_tienda import db
 
 
-class DAO:
+class DataAccessObject:
 
     def __init__(self, entity_name=None):
         self.__db = db
@@ -48,7 +48,7 @@ class DAO:
         cur.connection.commit()
 
 
-class BrandDAO(DAO):
+class BrandDataAccessObject(DataAccessObject):
 
     def __init__(self, brand=None):
         super().__init__(entity_name='brand')
@@ -79,7 +79,7 @@ class BrandDAO(DAO):
                                         condition=f"WHERE id_bra={self.__brand.get_id}")
 
 
-class CategoryDAO(DAO):
+class CategoryDataAccessObject(DataAccessObject):
 
     def __init__(self, category=None):
         super().__init__(entity_name='category')
@@ -111,7 +111,7 @@ class CategoryDAO(DAO):
                                         condition=f"WHERE id_cat={self.__category.get_id()}")
 
 
-class ProductDAO(DAO):
+class ProductDataAccessObject(DataAccessObject):
 
     def __init__(self, product=None):
         super().__init__(entity_name='product')
@@ -159,7 +159,7 @@ class ProductDAO(DAO):
         super()._delete(condition=f"WHERE id_pro={self.__product.get_id()}")
 
 
-class UserDAO(DAO):
+class UserDataAccessObject(DataAccessObject):
 
     def __init__(self, user=None):
         super().__init__(entity_name='users')
@@ -177,7 +177,7 @@ class UserDAO(DAO):
                                   f" pas_user='{self.__user.get_password()}');")
 
 
-class CartDAO(DAO):
+class CartDataAccessObject(DataAccessObject):
     def __init__(self, cart=None):
         super().__init__(entity_name='cart')
         self.__cart = cart

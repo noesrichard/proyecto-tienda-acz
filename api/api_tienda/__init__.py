@@ -2,12 +2,12 @@ from flask import Flask
 import os
 from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
-from .DbConnection import DBConnection
+from .data_base_connection import DataBaseConnection
 from .config import BDConfig
 
 
 app = Flask(__name__)
-db = DBConnection(app)
+db = DataBaseConnection(app)
 CORS(app)
 auth = HTTPBasicAuth()
 

@@ -2,7 +2,7 @@ from flask_mysqldb import MySQL
 import MySQLdb
 
 
-class DBConnection(MySQL):
+class DataBaseConnection(MySQL):
 
     def __init__(self, app):
         self.__msyql = MySQL(app)
