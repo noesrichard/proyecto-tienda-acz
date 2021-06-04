@@ -182,5 +182,11 @@ class CartDataAccessObject(DataAccessObject):
         super().__init__(entity_name='cart')
         self.__cart = cart
 
+
     def save(self):
         super()._save(f"null,'{self.__cart.get_user()}', '{self.__cart.get_product()}', '{self.__cart.get_quantity()}'")
+
+    def get_all(self):
+        return super()._get_all_as_dict(columns="product.nam_pro as product_name, product.pri_pro as product_price, "
+                                                "cart.qua_pro_car as product_quantity",
+                                        condition="INNER JOIN product ON cart.id_pro_car = product.id_pro")
