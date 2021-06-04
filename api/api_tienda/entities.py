@@ -1,7 +1,7 @@
 class Brand:
     def __init__(self, **kwargs):
-        self.__id = kwargs.get('id_bra')
-        self.__name = kwargs.get('nam_bra')
+        self.__id = kwargs.get('brand_id')
+        self.__name = kwargs.get('brand_name')
 
     def get_id(self):
         return self.__id
@@ -13,8 +13,8 @@ class Brand:
 class Category:
 
     def __init__(self, **kwargs):
-        self.__id = kwargs.get('id_cat')
-        self.__name = kwargs.get('nam_cat')
+        self.__id = kwargs.get('category_id')
+        self.__name = kwargs.get('category_name')
 
     def get_id(self):
         return self.__id
@@ -26,13 +26,13 @@ class Category:
 class Product:
 
     def __init__(self, **kwargs):
-        self.__id = kwargs.get('id_pro')
-        self.__name = kwargs.get('nam_pro')
-        self.__description = kwargs.get('des_pro')
-        self.__price = kwargs.get('pri_pro')
-        self.__quantity = kwargs.get('qua_pro')
-        self.__category = kwargs.get('id_cat_pro')
-        self.__brand = kwargs.get('id_bra_pro')
+        self.__id = kwargs.get('product_id')
+        self.__name = kwargs.get('product_name')
+        self.__description = kwargs.get('product_description')
+        self.__price = kwargs.get('product_price')
+        self.__quantity = kwargs.get('product_quantity_available')
+        self.__category = kwargs.get('category_id')
+        self.__brand = kwargs.get('brand_id')
 
     def get_id(self):
         return self.__id

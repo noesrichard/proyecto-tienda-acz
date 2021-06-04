@@ -18,22 +18,22 @@ def create_category():
     return "200 OK POST"
 
 
-@catalog.route('/catalog/categories/<int:id_cat>', methods=['PUT'])
-def update_category(id_cat):
+@catalog.route('/catalog/categories/<int:category_id>', methods=['PUT'])
+def update_category(category_id):
     data = request.get_json()
-    CategoryDAO(category=Category(id_cat=id_cat, **data)).update()
+    CategoryDAO(category=Category(category_id=category_id, **data)).update()
     return "200 OK PUT"
 
 
-@catalog.route('/catalog/categories/<int:id_cat>', methods=['DELETE'])
-def delete_category(id_cat):
-    CategoryDAO(category=Category(id_cat=id_cat)).delete()
+@catalog.route('/catalog/categories/<int:category_id>', methods=['DELETE'])
+def delete_category(category_id):
+    CategoryDAO(category=Category(category_id=category_id)).delete()
     return "200 OK DELETE"
 
 
-@catalog.route('/catalog/categories/<int:id_cat>', methods=['GET'])
-def get_category(id_cat):
-    return jsonify(CategoryDAO(category=Category(id_cat=id_cat)).get_one_by_id())
+@catalog.route('/catalog/categories/<int:category_id>', methods=['GET'])
+def get_category(category_id):
+    return jsonify(CategoryDAO(category=Category(category_id=category_id)).get_one_by_id())
 
 
 @catalog.route('/catalog/products', methods=['GET'])
@@ -48,32 +48,32 @@ def create_products():
     return "200 OK POST"
 
 
-@catalog.route('/catalog/products/<int:id_pro>', methods=['GET'])
-def get_product(id_pro):
-    return jsonify(ProductDAO(product=Product(id_pro=id_pro)).get_one_by_id())
+@catalog.route('/catalog/products/<int:product_id>', methods=['GET'])
+def get_product(product_id):
+    return jsonify(ProductDAO(product=Product(product_id=product_id)).get_one_by_id())
 
 
-@catalog.route('/catalog/products/<int:id_pro>', methods=['PUT'])
-def update_product(id_pro):
+@catalog.route('/catalog/products/<int:product_id>', methods=['PUT'])
+def update_product(product_id):
     data = request.get_json()
-    ProductDAO(product=Product(id_pro=id_pro, **data)).update()
+    ProductDAO(product=Product(product_id=product_id, **data)).update()
     return "200 OK PUT"
 
 
-@catalog.route('/catalog/products/<int:id_pro>', methods=['DELETE'])
-def delete_product(id_pro):
-    ProductDAO(product=Product(id_pro=id_pro)).delete()
+@catalog.route('/catalog/products/<int:product_id>', methods=['DELETE'])
+def delete_product(product_id):
+    ProductDAO(product=Product(product_id=product_id)).delete()
     return "200 OK DELETE"
 
 
 @catalog.route('/catalog/products/search', methods=['GET'])
 def search_products():
-    if 'id_cat' in request.args:
-        category = request.args.get('id_cat')
-        return jsonify(ProductDAO(Product(id_cat_pro=category)).get_all_by_category())
-    elif 'id_bra' in request.args:
-        brand = request.args.get('id_bra')
-        return jsonify(ProductDAO(Product(id_bra_pro=brand)).get_all_by_brand())
+    if 'category_id' in request.args:
+        category = request.args.get('category_id')
+        return jsonify(ProductDAO(Product(category_id=category)).get_all_by_category())
+    elif 'brand_id' in request.args:
+        brand = request.args.get('brand_id')
+        return jsonify(ProductDAO(Product(brand_id=brand)).get_all_by_brand())
     return "404"
 
 
@@ -89,19 +89,19 @@ def get_brands():
     return jsonify(BrandDAO().get_all())
 
 
-@catalog.route('/catalog/brands/<int:id_bra>', methods=['GET'])
-def get_brand(id_bra):
-    return jsonify(BrandDAO(brand=Brand(id_bra=id_bra)).get_one_by_id())
+@catalog.route('/catalog/brands/<int:brand_id>', methods=['GET'])
+def get_brand(brand_id):
+    return jsonify(BrandDAO(brand=Brand(brand_id=brand_id)).get_one_by_id())
 
 
-@catalog.route('/catalog/brands/<int:id_bra>', methods=['DELETE'])
-def delete_brand(id_bra):
-    BrandDAO(brand=Brand(id_bra=id_bra)).delete()
+@catalog.route('/catalog/brands/<int:brand_id>', methods=['DELETE'])
+def delete_brand(brand_id):
+    BrandDAO(brand=Brand(brand_id=brand_id)).delete()
     return "200 OK DELETE"
 
 
-@catalog.route('/catalog/brands/<int:id_bra>', methods=['PUT'])
-def update_brand(id_bra):
+@catalog.route('/catalog/brands/<int:brand_id>', methods=['PUT'])
+def update_brand(brand_id):
     data = request.get_json()
-    BrandDAO(brand=Brand(id_bra=id_bra, **data)).update()
+    BrandDAO(brand=Brand(brand_id=brand_id, **data)).update()
     return "200 OK PUT"
