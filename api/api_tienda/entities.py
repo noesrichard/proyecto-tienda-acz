@@ -61,14 +61,14 @@ class Product:
 
 class User:
     def __init__(self, **kwargs):
-        self.__email = kwargs.get('ema_user')
-        self.__pas_user = kwargs.get('pas_user')
-        self.__name = kwargs.get('nam_user')
-        self.__ape = kwargs.get('ape_user')
-        self.__is_verified = kwargs.get('is_ver_user')
+        self.__username = kwargs.get('username')
+        self.__pas_user = kwargs.get('password')
+        self.__name = kwargs.get('name')
+        self.__last_name = kwargs.get('last_name')
+        self.__is_verified = kwargs.get('verified')
 
-    def get_email(self):
-        return self.__email
+    def get_username(self):
+        return self.__username
 
     def get_password(self):
         return self.__pas_user
@@ -77,7 +77,7 @@ class User:
         return self.__name
 
     def get_last_name(self):
-        return self.__ape
+        return self.__last_name
 
     def is_verified(self):
         return self.__is_verified

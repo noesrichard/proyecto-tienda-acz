@@ -135,7 +135,7 @@ class ProductDAO(DAO):
             f"{self.__product.get_quantity()}, {self.__product.get_category()}, {self.__product.get_brand()}")
 
     def get_all(self):
-        return super()._get_all_as_dict(columns=self.__all_columns(),
+        return super()._get_all_as_dict(columns=self.__all_columns()+", category.nam_cat as category, brand.nam_bra as brand",
                                         condition="INNER JOIN category ON product.id_cat_pro=category.id_cat "
                                                   "INNER JOIN brand ON product.id_bra_pro=brand.id_bra;")
 
@@ -169,11 +169,11 @@ class UserDAO(DAO):
         return self.__user
 
     def save(self):
-        super()._save(f"'{self.__user.get_email()}', '{self.__user.get_password()}', '{self.__user.get_name()}', "
+        super()._save(f"'{self.__user.get_username()}', '{self.__user.get_password()}', '{self.__user.get_name()}', "
                       f"'{self.__user.get_last_name()}', {self.__user.is_verified()} ")
 
-    def is_valid(self):
-        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM users WHERE ema_user='{self.__user.get_email()}' AND"
+    def exists(self):
+        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM users WHERE id_user='{self.__user.get_username()}' AND"
                                   f" pas_user='{self.__user.get_password()}');")
 
 
