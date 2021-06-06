@@ -187,6 +187,11 @@ class CartDataAccessObject(DataAccessObject):
         super()._save(f"null,'{self.__cart.get_user()}', '{self.__cart.get_product()}', '{self.__cart.get_quantity()}'")
 
     def get_all(self):
-        return super()._get_all_as_dict(columns="product.nam_pro as product_name, product.pri_pro as product_price, "
+        return super()._get_all_as_dict(columns="cart.id_car as cart_id, product.nam_pro as product_name, "
+                                                "product.pri_pro as product_price, "
                                                 "cart.qua_pro_car as product_quantity",
                                         condition="INNER JOIN product ON cart.id_pro_car = product.id_pro")
+
+    def delete(self):
+        print("here")
+        super()._delete(f"WHERE id_car={self.__cart.get_id()}")
