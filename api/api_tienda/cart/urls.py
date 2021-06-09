@@ -9,3 +9,7 @@ def add_product(id_pro):
     print(data)
     CartDataAccessObject(cart=Cart(id_pro_car=id_pro, **data)).save()
     return "200 OK POST"
+
+@cart.route('/cart/hola', methods=['GET']) 
+def hola(): 
+    return "HOla"
