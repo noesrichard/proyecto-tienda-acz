@@ -12,4 +12,4 @@ def add_product(id_pro):
 
 @cart.route('/cart/hola', methods=['GET']) 
 def hola(): 
-    return "Hola 2" 
+    return "Probando desde richard 2" 
