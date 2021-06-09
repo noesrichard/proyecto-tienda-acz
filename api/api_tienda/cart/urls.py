@@ -12,4 +12,5 @@ def add_product(id_pro):
 
 @cart.route('/cart/hola', methods=['GET']) 
 def hola(): 
+    print("hola")
     return "Hola 2" 
