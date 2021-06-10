@@ -28,6 +28,8 @@ public class Cliente extends javax.swing.JFrame {
     }
     
     public void llenarTabla() throws Exception{ 
+        //Este metodo carga desde la API la tabla
+        //Recive una matriz y lo carga por filas en un ciclo
         DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel(); 
         String [][] categorias = Conexion.getCategories(); 
         for ( int i = 0; i < categorias.length; i++ ){ 
