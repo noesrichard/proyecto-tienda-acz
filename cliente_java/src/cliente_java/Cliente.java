@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Almacen;
+package cliente_java;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,7 +20,21 @@ public class Cliente extends javax.swing.JFrame {
      */
     public Cliente() {
         initComponents();
-        
+        try { 
+            llenarTabla();
+        } catch (Exception ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void llenarTabla() throws Exception{ 
+        //Este metodo carga desde la API la tabla
+        //Recive una matriz y lo carga por filas en un ciclo
+        DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel(); 
+        String [][] categorias = Conexion.getCategories(); 
+        for ( int i = 0; i < categorias.length; i++ ){ 
+            modelo.addRow(categorias[i]);
+        }
     }
 
     /**
