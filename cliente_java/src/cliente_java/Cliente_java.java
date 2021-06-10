@@ -19,6 +19,7 @@ public class Cliente_java {
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
         String [][] categorias = Conexion.getCategories(); 
+        //Conexion.crearCategoria("Monitores");
     }
     
 }
