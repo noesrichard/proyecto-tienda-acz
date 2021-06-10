@@ -24,10 +24,12 @@ public class Conexion {
             
         }
 	public static void get_call() throws Exception {
+        //Seteamos la url a la API del proyecto para recuperar las categorias
         String url;
         url = "https://proyecto-tienda-acz.herokuapp.com/catalog/categories";
         HttpClient client = HttpClient.newHttpClient();
-
+        
+        //Creamos la request especificando la url y que usamos el metodo GET
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(url))
                 .GET()
