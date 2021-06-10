@@ -25,3 +25,4 @@ def get_cart():
 def delete_cart_product(cart_id):
     CartDataAccessObject(Cart(cart_id=cart_id)).delete()
     return "200 OK DELETE"
+

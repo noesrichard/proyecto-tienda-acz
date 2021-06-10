@@ -1,2 +1,4 @@
 **__pycache__
 /.idea/
+/cliente_java/build/
+/cliente_java/nbproject/private/
