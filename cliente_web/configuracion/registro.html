@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <script src="js/jquery35.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Shojumaru&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styleregistro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $("#registro").click(function(){
+                var nombre=$("#nombre").val();
+                var apellido=$("#apellido").val();
+                var usuario=$("#usuario").val();
+                var clave=$("#clave").val();
+                var telefono=$("#telefono").val();
+
+                var respuesta= confirm("guardar datos");
+
+                if(respuesta){
+
+                    var envioDatos = 'action=Insertar&nombre='+nombre+'&apellido='+apellido+'&usuario='+usuario+'&clave='+clave+'&telefono='+telefono;
+                    //alert(envioDatos);
+                    $.ajax({
+                        type:'POST',
+                        data: envioDatos,
+                        url: 'sql.php',
+                        success:function(requerimiento){
+                            //alert(requerimiento);
+                            if(requerimiento==1){
+                                window.open("index.php","_self");
+                            }
+                            else
+                            {
+                                alert("registro no guardado")
+                            }
+                        }
+                    });
+                }
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <div class="heading">
+                <img src="img/sfon.png" class="logo">
+                <h1>REGISTRATE AQUI!</h1>
+            </div>
+            <!--Form-->
+            <div class="wrap">
+                
+            </div>
+            <div class="wrap2">
+                <label>Username</label>
+                <input type="text" id="usuario" name="usuario">
+                <span class="focus-input2"></span>
+            </div>
+            <div class="wrap2">
+                <label>Password</label>
+                <input type="Password" id="clave" name="clave">
+                <span class="focus-input2"></span>
+            </div>
+           <div class="wrap2">
+                <label>Repeat Password</label>
+                <input type="Password" id="clave" name="clave">
+                <span class="focus-input2"></span>
+
+            </div>
+            <a href="index.html" class="href">Si ya tienes cuenta pulsa aqui!</a>
+
+            <button class="btn" id="registro" name="registro">Register</button>
+        </div>
+        <!--Image-->
+        <div class="image">
+            <img src="img/reg.jpg" class="img" alt=""/>
+        </div>
+    </div>
+</body>
+</html>
