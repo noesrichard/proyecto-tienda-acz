@@ -169,12 +169,11 @@ class UserDataAccessObject(DataAccessObject):
         return self.__user
 
     def save(self):
-        super()._save(f"'{self.__user.get_username()}', '{self.__user.get_password()}', '{self.__user.get_name()}', "
-                      f"'{self.__user.get_last_name()}', {self.__user.is_verified()} ")
+        super()._save(f"'{self.__user.get_username()}', '{self.__user.get_password()}'")
 
     def exists(self):
-        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM users WHERE id_user='{self.__user.get_username()}' AND"
-                                  f" pas_user='{self.__user.get_password()}');")
+        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM users WHERE username='{self.__user.get_username()}' AND"
+                                  f" passwd='{self.__user.get_password()}');")
 
 
 class CartDataAccessObject(DataAccessObject):
