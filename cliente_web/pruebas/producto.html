@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div-producto">
+    </div>
+        <script> 
+	    var div = document.getElementById('div-producto'); 
+            var queryString = decodeURIComponent(window.location.search); 
+            queryString = queryString.substring(1); 
+            var id = queryString.split("=")[1]; 
+	    fetch('https://proyecto-tienda-acz.herokuapp.com/catalog/products/'+id)
+	    .then(response => response.json())
+	    .then(data => { 
+		    console.log(data); 
+ 		       div.innerHTML +=`
+                    <h2>${data.product_name}</h2>
+                    <h3>Precio: ${data.product_price}</h3>
+		    <p>Descripcion: ${data.product_description}</p>
+                	`
+             })
+		.then(error => console.log(error)); 
+        </script> 
+</body>
+</html>
