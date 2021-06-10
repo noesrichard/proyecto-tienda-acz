@@ -62,36 +62,24 @@ class Product:
 class User:
     def __init__(self, **kwargs):
         self.__username = kwargs.get('username')
-        self.__pas_user = kwargs.get('password')
-        self.__name = kwargs.get('name')
-        self.__last_name = kwargs.get('last_name')
-        self.__is_verified = kwargs.get('verified')
+        self.__password = kwargs.get('password')
 
     def get_username(self):
         return self.__username
 
     def get_password(self):
-        return self.__pas_user
-
-    def get_name(self):
-        return self.__name
-
-    def get_last_name(self):
-        return self.__last_name
-
-    def is_verified(self):
-        return self.__is_verified
+        return self.__password
 
 
 class Cart:
     def __init__(self, **kwargs):
-        self.__id_car = kwargs.get('id_car')
-        self.__user = kwargs.get('ema_user')
-        self.__product = kwargs.get('id_pro_car')
-        self.__quantity = kwargs.get('qua_pro_car')
+        self.__cart_id = kwargs.get('cart_id')
+        self.__user = kwargs.get('user')
+        self.__product = kwargs.get('product')
+        self.__quantity = kwargs.get('quantity')
 
     def get_id(self):
-        return self.__id_car
+        return self.__cart_id
 
     def get_user(self):
         return self.__user

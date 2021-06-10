@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from api_tienda.data_access_object import UserDataAccessObject
 from api_tienda.models import User
 from api_tienda import auth
-from .validator import  UserValidator
+from .validator import UserValidator
 
 user = Blueprint('user', __name__)
 
@@ -18,10 +18,9 @@ def user_registration():
     return "NO SE REGISTRO"
 
 
-
 @auth.verify_password
 def verify_password(username, password):
-    client_user = UserDataAccessObject(User(ema_user=username, pas_user=password))
+    client_user = UserDataAccessObject(User(username=username, password=password))
     if client_user.exists():
         return client_user.get_user()
 

@@ -18,8 +18,4 @@ class UserValidator(Validator):
             return False
         if self._entity.get_password() == "":
             return False
-        if self._entity.get_name() == "":
-            return False
-        if self._entity.get_last_name() == "":
-            return False
         return True

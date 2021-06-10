@@ -10,7 +10,13 @@ catalog = Blueprint('api_catalog', __name__)
 def get_categories():
     return jsonify(CategoryDataAccessObject().get_all())
 
-
+'''
+JSON:
+{
+    "category_id": 
+    "category_name":
+}
+'''
 @catalog.route('/catalog/categories', methods=['POST'])
 def create_category():
     data = request.get_json()
@@ -35,7 +41,18 @@ def delete_category(category_id):
 def get_category(category_id):
     return jsonify(CategoryDataAccessObject(category=Category(category_id=category_id)).get_one_by_id())
 
-
+'''
+JSON:
+{
+    "product_id": , 
+    "product_name": , 
+    "product_description": , 
+    "product_price": , 
+    "product_quantity_available": , 
+    "category_id": , 
+    "brand_id": , 
+}
+'''
 @catalog.route('/catalog/products', methods=['GET'])
 def get_products():
     return jsonify(ProductDataAccessObject().get_all())
@@ -76,7 +93,13 @@ def search_products():
         return jsonify(ProductDataAccessObject(Product(brand_id=brand)).get_all_by_brand())
     return "404"
 
-
+'''
+JSON
+{
+    "brand_id": ,  
+    "brand_name": 
+}
+'''
 @catalog.route('/catalog/brands', methods=['POST'])
 def create_brand():
     data = request.get_json()

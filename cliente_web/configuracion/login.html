@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ACZ</title>
+	<script src="js/jquery35.js"></script>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Shojumaru&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+</head>
+<script type="text/javascript">
+	history.forward();
+	$(document).ready(function(){
+		      $("#loguin").click(function(){
+                var nombre = $("#nombre").val();
+                var clave = $("#clave").val();
+                if(nombre=="" || clave=="")
+                {
+                }
+                else
+                {
+                    var envioDatos = 'action=Login&nombre='+nombre+     
+                                        '&clave='+clave;
+                    //alert(envioDatos);
+                    $.ajax({
+                        type : 'POST',  
+                        data : envioDatos,  
+                        url  : 'sql.php',
+                        success: function(requerimiento){
+                            //alert(requerimiento);
+                            if(parseInt(requerimiento)==1)
+                            {
+                                window.open("prueba.php","_self");
+                            }else{
+                            	alert('inicio de sesion invalido');
+                            }
+                        }
+                    }); 
+                }
+
+            });
+        });
+</script>
+<body>
+<section id="divisor">
+	<div class="left">
+		<p class="tittle">
+			
+		</p>
+	</div>
+	<div class="right">
+		<p class="tittle">
+			ACZ
+		</p>
+		<div class="box">
+		
+		</div>
+		<div class="loginbox">
+			<img src="img/stb.jpg" class="avatar">
+			<h1 class="letter">Entra Aqui!</h1>
+			<form>
+				<p class="p">Username</p>
+				<input type="text"  id="nombre" name="nombre" placeholder="Enter Username">
+				<p class="letterp">Password</p>
+				<input type="Password"  id="clave" name="clave" placeholder="Enter Password">
+				<input type="button"  id="loguin" name="loguin" value="Login" class="btn">
+				<a href="registro.html">Crea tu Cuenta Aqui</a><br>
+
+				
+			</form>
+		</div>
+	</div>
+</section>
+</body>
+</html>

@@ -169,12 +169,11 @@ class UserDataAccessObject(DataAccessObject):
         return self.__user
 
     def save(self):
-        super()._save(f"'{self.__user.get_username()}', '{self.__user.get_password()}', '{self.__user.get_name()}', "
-                      f"'{self.__user.get_last_name()}', {self.__user.is_verified()} ")
+        super()._save(f"'{self.__user.get_username()}', '{self.__user.get_password()}'")
 
     def exists(self):
-        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM users WHERE id_user='{self.__user.get_username()}' AND"
-                                  f" pas_user='{self.__user.get_password()}');")
+        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM users WHERE username='{self.__user.get_username()}' AND"
+                                  f" passwd='{self.__user.get_password()}');")
 
 
 class CartDataAccessObject(DataAccessObject):
@@ -182,5 +181,16 @@ class CartDataAccessObject(DataAccessObject):
         super().__init__(entity_name='cart')
         self.__cart = cart
 
+
     def save(self):
         super()._save(f"null,'{self.__cart.get_user()}', '{self.__cart.get_product()}', '{self.__cart.get_quantity()}'")
+
+    def get_all(self):
+        return super()._get_all_as_dict(columns="cart.id_car as cart_id, product.nam_pro as product_name, "
+                                                "product.pri_pro as product_price, "
+                                                "cart.qua_pro_car as product_quantity",
+                                        condition="INNER JOIN product ON cart.id_pro_car = product.id_pro")
+
+    def delete(self):
+        print("here")
+        super()._delete(f"WHERE id_car={self.__cart.get_id()}")

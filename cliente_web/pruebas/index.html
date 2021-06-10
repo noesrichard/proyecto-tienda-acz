@@ -14,7 +14,8 @@
             
         </ul>
     </aside>
-    <nav id="nav-principal">
+    <div id="div-productos">
+    </div>
         <script> 
             var ul = document.getElementById('aside-ul-categorias'); 
             fetch('https://proyecto-tienda-acz.herokuapp.com/catalog/categories')
@@ -23,11 +24,22 @@
                 console.log(data);
                 for ( let i = 0; i <= data.length ; i++){ 
                     ul.innerHTML+=`
-                        <li><a href="productos.html?id_cat=${data[i].id_cat}">${data[i].nam_cat}</li>
+                        <li><a href="productos.html?id_cat=${data[i].category_id}">${data[i].category_name}</li>
                     `
                 }
             })
+	    var div = document.getElementById('div-productos'); 
+	    fetch('https://proyecto-tienda-acz.herokuapp.com/catalog/products')
+	    .then(response => response.json())
+	    .then(data => { 
+		    console.log(data); 
+		    for ( let i = 0; i<= data.length ; i++){ 
+			    div.innerHTML+= ` 
+			    <label><a href="producto.html?product_id=${data[i].product_id}">${data[i].product_name}</a></label>
+			    `
+		    }
+	    })
+		.then(error => console.log(error)); 
         </script> 
-    </nav>
 </body>
 </html>
