@@ -16,30 +16,9 @@
 		      $("#loguin").click(function(){
                 var nombre = $("#nombre").val();
                 var clave = $("#clave").val();
-                if(nombre=="" || clave=="")
-                {
-                }
-                else
-                {
-                    var envioDatos = 'action=Login&nombre='+nombre+     
-                                        '&clave='+clave;
-                    //alert(envioDatos);
-                    $.ajax({
-                        type : 'POST',  
-                        data : envioDatos,  
-                        url  : 'sql.php',
-                        success: function(requerimiento){
-                            //alert(requerimiento);
-                            if(parseInt(requerimiento)==1)
-                            {
-                                window.open("prueba.php","_self");
-                            }else{
-                            	alert('inicio de sesion invalido');
-                            }
-                        }
-                    }); 
-                }
-
+                  if(nombre=="" || clave==""){
+                  }
+               }
             });
         });
 </script>
