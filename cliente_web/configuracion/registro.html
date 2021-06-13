@@ -21,9 +21,9 @@
                 if(clave == clave_repetida){
                     fetch('https://proyecto-tienda-acz.herokuapp.com/user/registration', {
                     method: 'POST', 
-                        headers: {'Content-Type': 'application/json'}
+                        headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({
-                            "username":usuario , 
+                            "username":usuario, 
                             "password":clave 
                         })
 
@@ -31,12 +31,15 @@
                     .then(res => res.json())
                         .then(data => {
                             console.log(data); 
-                            if ( data.response == "200"){ 
+                            if ( data.response == 200){ 
                                 location.replace('login.html'); 
                             }
                         })
                     .then(error => console.log(error)); 
                     
+                }
+                else{ 
+                    console.log("Error"); 
                 }
             
             });
