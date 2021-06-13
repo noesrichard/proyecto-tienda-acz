@@ -18,30 +18,26 @@
                 var usuario=$("#usuario").val();
                 var clave=$("#clave").val();
                 var clave_repetida = $("#clave_repetida").val(); 
-                if(clave == clave_repetida){
-                    fetch('https://proyecto-tienda-acz.herokuapp.com/user/registration', {
-                    method: 'POST', 
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            "username":usuario, 
-                            "password":clave 
-                        })
-
+                var local_url = 'http://127.0.0.1:5000/user/registration';
+                var url ='https://proyecto-tienda-acz.herokuapp.com/user/registration'; 
+                fetch(url, {
+                method: 'POST', 
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        "username":usuario, 
+                        "password":clave, 
+                        "repeated_password": clave_repetida
                     })
-                    .then(res => res.json())
-                        .then(data => {
-                            console.log(data); 
-                            if ( data.response == 200){ 
-                                location.replace('login.html'); 
-                            }
-                        })
-                    .then(error => console.log(error)); 
-                    
-                }
-                else{ 
-                    console.log("Error"); 
-                }
-            
+
+                })
+                .then(res => res.json())
+                    .then(data => {
+                        console.log(data); 
+                        if ( data.response == 200){ 
+                            location.replace('login.html'); 
+                        }
+                    })
+                .then(error => console.log(error)); 
             });
         });
     </script>

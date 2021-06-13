@@ -52,7 +52,6 @@ class BrandDataAccessObject(DataAccessObject):
 
     def __init__(self, brand=None):
         super().__init__(entity_name='brand')
-        self.__brand = brand
         self.__columns = {
             'id_bra': 'id_bra as brand_id',
             'nam_bra': 'nam_bra as brand_name'
@@ -61,36 +60,35 @@ class BrandDataAccessObject(DataAccessObject):
     def __all_columns(self):
         return super()._all_columns(self.__columns)
 
-    def save(self):
-        super()._save(f"null,'{self.__brand.get_name()}'")
+    def save(self, brand):
+        super()._save(f"null,'{brand.get_name()}'")
 
     def get_all(self):
         return super()._get_all_as_dict(columns=self.__all_columns())
 
-    def update(self):
-        super()._update(sql_params=f"nam_bra='{self.__brand.get_name()}' "
-                                   f"WHERE id_bra={self.__brand.get_id()}")
+    def update(self, brand):
+        super()._update(sql_params=f"nam_bra='{brand.get_name()}' "
+                                   f"WHERE id_bra={brand.get_id()}")
 
-    def delete(self):
-        super()._delete(condition=f"WHERE id_bra={self.__brand.get_id()}")
+    def delete(self, brand):
+        super()._delete(condition=f"WHERE id_bra={brand.get_id()}")
 
-    def get_one_by_id(self):
+    def get_one_by_id(self, brand):
         return super()._get_one_as_dict(columns="id_bra as brand_id, nam_bra as brand_name",
-                                        condition=f"WHERE id_bra={self.__brand.get_id}")
+                                        condition=f"WHERE id_bra={brand.get_id}")
 
 
 class CategoryDataAccessObject(DataAccessObject):
 
     def __init__(self, category=None):
         super().__init__(entity_name='category')
-        self.__category = category
         self.__columns = {
             'id_cat': 'id_cat as category_id',
             'nam_cat': 'nam_cat as category_name'
         }
 
-    def save(self):
-        super()._save(f"null,'{self.__category.get_name()}'")
+    def save(self, category):
+        super()._save(f"null,'{category.get_name()}'")
 
     def __all_columns(self):
         return super()._all_columns(self.__columns)
@@ -98,24 +96,26 @@ class CategoryDataAccessObject(DataAccessObject):
     def get_all(self):
         return super()._get_all_as_dict(columns=self.__all_columns())
 
-    def update(self):
+    def update(self, category):
         super()._update(
-            sql_params=f"nam_cat='{self.__category.get_name()}' "
-                       f"WHERE id_cat={self.__category.get_id()}")
+            sql_params=f"nam_cat='{category.get_name()}' "
+                       f"WHERE id_cat={category.get_id()}")
 
-    def delete(self):
-        super()._delete(condition=f"WHERE id_cat={self.__category.get_id()}")
+    def delete(self, category):
+        super()._delete(condition=f"WHERE id_cat={category.get_id()}")
 
-    def get_one_by_id(self):
+    def get_one_by_id(self, category):
         return super()._get_one_as_dict(columns="id_cat as category_id, nam_cat as category_name",
-                                        condition=f"WHERE id_cat={self.__category.get_id()}")
+                                        condition=f"WHERE id_cat={category.get_id()}")
+
+    def exists(self, category):
+        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM category WHERE nam_cat='{category.get_name()}');")
 
 
 class ProductDataAccessObject(DataAccessObject):
 
     def __init__(self, product=None):
         super().__init__(entity_name='product')
-        self.__product = product
         self.__columns = {
             'id': 'product.id_pro as product_id',
             'name': 'product.nam_pro as product_name',
@@ -129,68 +129,69 @@ class ProductDataAccessObject(DataAccessObject):
     def __all_columns(self):
         return super()._all_columns(self.__columns)
 
-    def save(self):
+    def save(self, product):
         super()._save(
-            f"null,'{self.__product.get_name()}','{self.__product.get_description()}',{self.__product.get_price()},"
-            f"{self.__product.get_quantity()}, {self.__product.get_category()}, {self.__product.get_brand()}")
+            f"null,'{product.get_name()}','{product.get_description()}',{product.get_price()},"
+            f"{product.get_quantity()}, {product.get_category()}, {product.get_brand()}")
 
     def get_all(self):
-        return super()._get_all_as_dict(columns=self.__all_columns()+", category.nam_cat as category, brand.nam_bra as brand",
-                                        condition="INNER JOIN category ON product.id_cat_pro=category.id_cat "
-                                                  "INNER JOIN brand ON product.id_bra_pro=brand.id_bra;")
+        return super()._get_all_as_dict(
+            columns=self.__all_columns() + ", category.nam_cat as category, brand.nam_bra as brand",
+            condition="INNER JOIN category ON product.id_cat_pro=category.id_cat "
+                      "INNER JOIN brand ON product.id_bra_pro=brand.id_bra;")
 
-    def get_one_by_id(self):
-        return super()._get_one_as_dict(columns=self.__all_columns(), condition=f"WHERE id_pro = {self.__product.get_id()}")
+    def get_one_by_id(self, product):
+        return super()._get_one_as_dict(columns=self.__all_columns(),
+                                        condition=f"WHERE id_pro = {product.get_id()}")
 
-    def get_all_by_category(self):
-        return super()._get_all_as_dict(columns=self.__all_columns(), condition=f"WHERE id_cat_pro={self.__product.get_category()}")
+    def get_all_by_category(self, product):
+        return super()._get_all_as_dict(columns=self.__all_columns(),
+                                        condition=f"WHERE id_cat_pro={product.get_category()}")
 
-    def get_all_by_brand(self):
-        return super()._get_all_as_dict(columns=self.__all_columns(), condition=f"WHERE id_bra_pro={self.__product.get_brand()}")
+    def get_all_by_brand(self, product):
+        return super()._get_all_as_dict(columns=self.__all_columns(),
+                                        condition=f"WHERE id_bra_pro={product.get_brand()}")
 
-    def update(self):
+    def update(self, product):
         super()._update(
-            sql_params=f"nam_pro='{self.__product.get_name()}', des_pro='{self.__product.get_description()}', "
-                       f"pri_pro={self.__product.get_price()}, qua_pro={self.__product.get_quantity()}, "
-                       f"id_cat_pro={self.__product.get_category()}, "
-                       f"id_bra_pro={self.__product.get_brand()} WHERE id_pro={self.__product.get_id()}")
+            sql_params=f"nam_pro='{product.get_name()}', des_pro='{product.get_description()}', "
+                       f"pri_pro={product.get_price()}, qua_pro={product.get_quantity()}, "
+                       f"id_cat_pro={product.get_category()}, "
+                       f"id_bra_pro={product.get_brand()} WHERE id_pro={product.get_id()}")
 
-    def delete(self):
-        super()._delete(condition=f"WHERE id_pro={self.__product.get_id()}")
+    def delete(self, product):
+        super()._delete(condition=f"WHERE id_pro={product.get_id()}")
 
 
 class UserDataAccessObject(DataAccessObject):
 
     def __init__(self, user=None):
         super().__init__(entity_name='users')
-        self.__user = user
 
-    def get_user(self):
-        return self.__user
+    def save(self, user):
+        super()._save(f"'{user.get_username()}', '{user.get_password()}'")
 
-    def save(self):
-        super()._save(f"'{self.__user.get_username()}', '{self.__user.get_password()}'")
+    def exists(self, user):
+        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM users WHERE username='{user.get_username()}' AND"
+                                  f" passwd='{user.get_password()}');")
 
-    def exists(self):
-        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM users WHERE username='{self.__user.get_username()}' AND"
-                                  f" passwd='{self.__user.get_password()}');")
+    def exists_username(self, user):
+        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM users WHERE username='{user.get_username()}')")
 
 
 class CartDataAccessObject(DataAccessObject):
     def __init__(self, cart=None):
         super().__init__(entity_name='cart')
-        self.__cart = cart
 
+    def save(self, cart):
+        super()._save(f"null,'{cart.get_user()}', '{cart.get_product()}', '{cart.get_quantity()}'")
 
-    def save(self):
-        super()._save(f"null,'{self.__cart.get_user()}', '{self.__cart.get_product()}', '{self.__cart.get_quantity()}'")
-
-    def get_all(self):
+    def get_all(self, cart):
         return super()._get_all_as_dict(columns="cart.id_car as cart_id, product.nam_pro as product_name, "
                                                 "product.pri_pro as product_price, "
                                                 "cart.qua_pro_car as product_quantity",
-                                        condition="INNER JOIN product ON cart.id_pro_car = product.id_pro")
+                                        condition="INNER JOIN product ON cart.id_pro_car = product.id_pro "
+                                                  f"WHERE cart.user_car = '{cart.get_user()}'")
 
-    def delete(self):
-        print("here")
-        super()._delete(f"WHERE id_car={self.__cart.get_id()}")
+    def delete(self, cart):
+        super()._delete(f"WHERE id_car={cart.get_id()}")

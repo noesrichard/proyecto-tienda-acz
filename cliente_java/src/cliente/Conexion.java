@@ -75,17 +75,7 @@ public class Conexion {
             Category category = new Gson().fromJson(jsonObj.toString(), Category.class);
             categorias[i][0] = String.valueOf(category.getCategory_id());
             categorias[i][1] = category.getCategory_name();
-        }/*
-        for ( int i = 0; i < categorias.length; i++ ){ 
-            for ( int j = 0; j < 3; j++){ 
-                System.out.println(categorias[i][j]);
-            }
         }
-        for ( int i = 0; i < categorias.length; i++ ){ 
-       
-                System.out.println(categorias[i]);
-          
-        }*/
         return categorias; 
          
     }
@@ -103,6 +93,9 @@ public class Conexion {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+		JSONObject jsonResponse = new JSONObject(response.body());
+		System.out.println(response.body());
+		System.out.println(jsonResponse.getString("error_exists"));
         
     }
     
@@ -115,5 +108,6 @@ public class Conexion {
                 .DELETE()
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+		System.out.println(response.body());
     }
 }
