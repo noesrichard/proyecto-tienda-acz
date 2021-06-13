@@ -5,8 +5,9 @@ import urllib.parse as urlparse
 
 class BDConfig(Config):
     MYSQL_HOST = "localhost"
-    MYSQL_USER = "root"
+    MYSQL_USER = "rmcv"
     MYSQL_PASSWORD = ""
+    MYSQL_PORT= 3308
     MYSQL_DB = "tienda"
 
 
