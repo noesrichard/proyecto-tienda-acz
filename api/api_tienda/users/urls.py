@@ -26,12 +26,10 @@ def verify_password(username, password):
 
 
 @user.route('/user/login', methods=['POST'])
+@auth.login_required
 def login():
-    permission = {'permission': False}
-    data = request.get_json()
-    if UserDataAccessObject(user=User(**data)).exists():
-        permission['permission'] = True
-    return jsonify(permission)
+   permission = {'permission': True}
+   return jsonify(permission)
 
 
 @user.route('/user/index', methods=['GET'])
