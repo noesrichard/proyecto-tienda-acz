@@ -2,16 +2,23 @@ from flask import Blueprint, request, jsonify
 from api_tienda.data_access_object import UserDataAccessObject
 from api_tienda.models import User
 from api_tienda import auth
-from . import app
-
+from api_tienda.users import validator
 user = Blueprint('user', __name__)
 
 
 @user.route('/user/registration', methods=['POST'])
 def user_registration():
     data = request.get_json()
-    new_user = User(**data)
-    response = app.create_user(new_user)
+    new_user = User(username=data.get('username'), password=data.get('password'))
+    repeated_password = data.get('repeated_password')
+    response = validator.validate_user(new_user)
+    if repeated_password != new_user.get_password():
+        response['error_password'] = 'Las contraseñas no coinciden'
+    if UserDataAccessObject().exists_username(new_user):
+        response['error_user'] = "Nombre de usuario no disponible"
+    if 'error_username_password' not in response and 'error_user' not in response and 'error_password' not in response:
+        UserDataAccessObject().save(new_user)
+        response['message'] = 'Usuario creado exitosamente!'
     return jsonify(response)
 
 

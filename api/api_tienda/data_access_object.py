@@ -108,6 +108,9 @@ class CategoryDataAccessObject(DataAccessObject):
         return super()._get_one_as_dict(columns="id_cat as category_id, nam_cat as category_name",
                                         condition=f"WHERE id_cat={category.get_id()}")
 
+    def exists(self, category):
+        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM category WHERE nam_cat='{category.get_name()}');")
+
 
 class ProductDataAccessObject(DataAccessObject):
 
