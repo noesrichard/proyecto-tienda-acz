@@ -9,13 +9,16 @@ user = Blueprint('user', __name__)
 
 @user.route('/user/registration', methods=['POST'])
 def user_registration():
+    response = {'response': 0}
     data = request.get_json()
     new_user = User(**data)
     is_valid = UserValidator(new_user).validate()
     if is_valid:
         UserDataAccessObject(user=User(**data)).save()
-        return "200 OK POST"
-    return "NO SE REGISTRO"
+        response['response'] = 200
+        return jsonify(response) 
+    response['response'] = 500
+    return jsonify(response) 
 
 
 @auth.verify_password
