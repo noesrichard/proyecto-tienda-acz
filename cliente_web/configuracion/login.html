@@ -18,7 +18,8 @@
                 var clave = $("#clave").val();
                   if(nombre != "" || clave != ""){
                       var auth = btoa(nombre+':'+clave); 
-                      var url = 'http://proyecto-tienda-acz.herokuapp.com/user/login'
+                      var local_url = 'http://127.0.0.1:5000/user/login';
+                      var url = 'http://proyecto-tienda-acz.herokuapp.com/user/login';
                       fetch(url, {
                              method: 'POST', 
                              headers: {'Content-Type': 'application/json',
