@@ -15,35 +15,33 @@
         $(document).ready(function(){
 
             $("#registro").click(function(){
-                var nombre=$("#nombre").val();
-                var apellido=$("#apellido").val();
                 var usuario=$("#usuario").val();
                 var clave=$("#clave").val();
-                var telefono=$("#telefono").val();
+                var clave_repetida = $("#clave_repetida").val(); 
+                if(clave == clave_repetida){
+                    fetch('https://proyecto-tienda-acz.herokuapp.com/user/registration', {
+                    method: 'POST', 
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            "username":usuario, 
+                            "password":clave 
+                        })
 
-                var respuesta= confirm("guardar datos");
-
-                if(respuesta){
-
-                    var envioDatos = 'action=Insertar&nombre='+nombre+'&apellido='+apellido+'&usuario='+usuario+'&clave='+clave+'&telefono='+telefono;
-                    //alert(envioDatos);
-                    $.ajax({
-                        type:'POST',
-                        data: envioDatos,
-                        url: 'sql.php',
-                        success:function(requerimiento){
-                            //alert(requerimiento);
-                            if(requerimiento==1){
-                                window.open("index.php","_self");
+                    })
+                    .then(res => res.json())
+                        .then(data => {
+                            console.log(data); 
+                            if ( data.response == 200){ 
+                                location.replace('login.html'); 
                             }
-                            else
-                            {
-                                alert("registro no guardado")
-                            }
-                        }
-                    });
+                        })
+                    .then(error => console.log(error)); 
+                    
                 }
-
+                else{ 
+                    console.log("Error"); 
+                }
+            
             });
         });
     </script>
@@ -71,7 +69,7 @@
             </div>
            <div class="wrap2">
                 <label>Repeat Password</label>
-                <input type="Password" id="clave" name="clave">
+                <input type="Password" id="clave_repetida" name="clave_repetida">
                 <span class="focus-input2"></span>
 
             </div>
