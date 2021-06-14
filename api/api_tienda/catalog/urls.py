@@ -1,7 +1,9 @@
 from api_tienda.models import Brand, Category, Product
-from api_tienda.data_access_object import BrandDataAccessObject, CategoryDataAccessObject, ProductDataAccessObject
+from .dao import BrandDataAccessObject, CategoryDataAccessObject, ProductDataAccessObject
+from .dto import CatalogDataTransferObject
 from flask import jsonify, Blueprint, request
 from api_tienda.catalog import validator
+
 catalog = Blueprint('api_catalog', __name__)
 
 '''
@@ -13,9 +15,16 @@ JSON:
 '''
 
 
+@catalog.route('/catalog', methods=['GET'])
+def get_catalog():
+    data = CatalogDataTransferObject().get_catalog()
+    return jsonify(data)
+
+
 @catalog.route('/catalog/categories', methods=['GET'])
 def get_categories():
-    return jsonify(CategoryDataAccessObject().get_all())
+    data = CategoryDataAccessObject.get_all()
+    return jsonify(data)
 
 
 @catalog.route('/catalog/categories', methods=['POST'])
