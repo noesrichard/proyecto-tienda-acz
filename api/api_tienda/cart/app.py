@@ -1,4 +1,4 @@
-from api_tienda.data_access_object import CartDataAccessObject
+from .dao import CartDataAccessObject
 from api_tienda.models import Cart
 
 

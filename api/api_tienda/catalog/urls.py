@@ -23,7 +23,7 @@ def get_catalog():
 
 @catalog.route('/catalog/categories', methods=['GET'])
 def get_categories():
-    data = CategoryDataAccessObject.get_all()
+    data = CategoryDataAccessObject().get_all()
     return jsonify(data)
 
 
