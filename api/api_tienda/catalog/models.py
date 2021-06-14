@@ -1,3 +1,8 @@
+from .dao import CategoryDataAccessObject
+from .dao import BrandDataAccessObject
+from .dao import ProductDataAccessObject
+
+
 class Brand:
     def __init__(self, **kwargs):
         self.__id = kwargs.get('brand_id')
@@ -55,37 +60,18 @@ class Product:
     def get_brand(self):
         return self.__brand
 
-    def is_price_valid(self):
-        pass
 
+class Catalog:
 
-class User:
-    def __init__(self, **kwargs):
-        self.__username = kwargs.get('username')
-        self.__password = kwargs.get('password')
+    def __init__(self):
+        self.__products = ProductDataAccessObject().get_all()
+        self.__categories = CategoryDataAccessObject().get_all()
+        self.__brands = BrandDataAccessObject().get_all()
 
-    def get_username(self):
-        return self.__username
-
-    def get_password(self):
-        return self.__password
-
-
-class Cart:
-    def __init__(self, **kwargs):
-        self.__cart_id = kwargs.get('cart_id')
-        self.__user = kwargs.get('user')
-        self.__product = kwargs.get('product')
-        self.__quantity = kwargs.get('quantity')
-
-    def get_id(self):
-        return self.__cart_id
-
-    def get_user(self):
-        return self.__user
-
-    def get_product(self):
-        return self.__product
-
-    def get_quantity(self):
-        return self.__quantity
+    def get_catalog(self):
+        data = {
+            'products': self.__products,
+            'categories': self.__categories,
+            'brands': self.__brands
+        }
+        return data

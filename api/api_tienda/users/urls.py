@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from api_tienda.data_access_object import UserDataAccessObject
-from api_tienda.models import User
+from .dao import UserDataAccessObject
+from .models import User
 from api_tienda import auth
 from api_tienda.users import validator
 user = Blueprint('user', __name__)
