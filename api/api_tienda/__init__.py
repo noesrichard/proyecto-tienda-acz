@@ -32,4 +32,7 @@ def create_app():
     from .cart.urls import cart
     app.register_blueprint(cart)
 
+    from .comments.urls import comments
+    app.register_blueprint(comments)
+
     return app
