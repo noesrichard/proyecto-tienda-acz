@@ -26,3 +26,17 @@ def create_comment(product_id):
         return jsonify(response)
     response['error_description'] = 'La descripcion de tu comentario no puede estar vacia!'
     return jsonify(response)
+
+
+@comments.route('/catalog/products/comments/<int:comment_id>', methods=['DELETE'])
+@auth.login_required
+def delete_comment(comment_id):
+    response = {}
+    comment = Comment(comment_id=comment_id, user=auth.current_user().get_username())
+    exists = CommentsDataAccessObject().exists(comment)
+    if exists:
+        CommentsDataAccessObject().delete(comment)
+        response['message'] = 'Se ha eliminado el comentario!'
+        return jsonify(response)
+    response['error_comment'] = 'No existe el comentario!'
+    return jsonify(response)

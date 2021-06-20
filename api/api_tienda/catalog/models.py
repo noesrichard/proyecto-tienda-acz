@@ -1,6 +1,7 @@
 from .dao import CategoryDataAccessObject
 from .dao import BrandDataAccessObject
 from .dao import ProductDataAccessObject
+from api_tienda.comments.dao import CommentsDataAccessObject
 
 
 class Brand:
@@ -73,5 +74,19 @@ class Catalog:
             'products': self.__products,
             'categories': self.__categories,
             'brands': self.__brands
+        }
+        return data
+
+
+class ProductDescription:
+
+    def __init__(self, product, comment):
+        self.__product = ProductDataAccessObject().get_one_by_id(product)
+        self.__coments = CommentsDataAccessObject().get_comments_by_product(comment)
+
+    def get_product_description(self):
+        data = {
+            'product': self.__product,
+            'comments': self.__coments
         }
         return data

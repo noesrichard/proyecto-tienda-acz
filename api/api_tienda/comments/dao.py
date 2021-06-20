@@ -20,3 +20,10 @@ class CommentsDataAccessObject(DataAccessObject):
     def save(self, comment):
         super()._save(f"null,{comment.get_product()}, '{comment.get_user()}', '{comment.get_description()}',"
                       f" {comment.get_qualification()}")
+
+    def delete(self, comment):
+        super()._delete(f"WHERE id_com={comment.get_id()}")
+
+    def exists(self, comment):
+        return super()._sql_query(f"SELECT EXISTS( SELECT * FROM comments WHERE user_com='{comment.get_user()}' AND "
+                                  f"id_com={comment.get_id()})")

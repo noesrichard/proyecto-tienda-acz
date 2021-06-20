@@ -1,8 +1,9 @@
 from .models import Brand, Category, Product
 from .dao import BrandDataAccessObject, CategoryDataAccessObject, ProductDataAccessObject
-from .models import Catalog
+from .models import Catalog, ProductDescription
 from flask import jsonify, Blueprint, request
 from api_tienda.catalog import validator
+from api_tienda.comments.models import Comment
 
 catalog = Blueprint('api_catalog', __name__)
 
@@ -79,6 +80,14 @@ JSON:
 @catalog.route('/catalog/products', methods=['GET'])
 def get_products():
     return jsonify(ProductDataAccessObject().get_all())
+
+
+@catalog.route('/catalog/products/<int:product_id>/description', methods=['GET'])
+def get_product_description(product_id):
+    product = Product(product_id=product_id)
+    comment = Comment(product_id=product_id)
+    data = ProductDescription(product, comment).get_product_description()
+    return jsonify(data)
 
 
 @catalog.route('/catalog/products', methods=['POST'])
