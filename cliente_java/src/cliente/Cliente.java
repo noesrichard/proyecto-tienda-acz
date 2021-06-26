@@ -144,10 +144,10 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre");
 
-        jMenu2.setText("Categoria");
+        jMenu2.setText("Categorias");
         jMenuBar2.add(jMenu2);
 
-        jMenu3.setText("Cargar Datos");
+        jMenu3.setText("Marcas");
         jMenuBar2.add(jMenu3);
 
         setJMenuBar(jMenuBar2);

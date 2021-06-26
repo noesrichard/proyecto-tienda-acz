@@ -110,4 +110,31 @@ public class Conexion {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 		System.out.println(response.body());
     }
+    
+    //Methods for Brands
+    
+    public static String [][] getBrands() throws Exception {
+        String url;
+        url = "https://proyecto-tienda-acz.herokuapp.com/catalog/brands";
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(url))
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        
+
+        JSONArray jArray = new JSONArray(response.body());
+        String [][] marcas = new String[jArray.length()][2];
+        
+        for (int i = 0; i < jArray.length(); i++) {
+            JSONObject jsonObj = jArray.getJSONObject(i);
+            Brands brand = new Gson().fromJson(jsonObj.toString(), Brands.class);
+            marcas[i][0] = String.valueOf(brand.getBrand_id());
+            marcas[i][1] = brand.getBrand_name();
+        }
+        return marcas; 
+         
+    }
 }
