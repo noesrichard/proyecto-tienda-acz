@@ -21,46 +21,48 @@ public class Cliente extends javax.swing.JFrame {
      */
     public Cliente() {
         initComponents();
-        try { 
+        try {
             llenarTabla();
         } catch (Exception ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void llenarTabla() throws Exception{ 
+
+    public void llenarTabla() throws Exception {
         //Este metodo carga desde la API la tabla
         //Recive una matriz y lo carga por filas en un ciclo
-        DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel(); 
-        String [][] categorias = Conexion.getCategories(); 
-        for ( int i = 0; i < categorias.length; i++ ){ 
+        DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel();
+        String[][] categorias = Conexion.getCategories();
+        for (int i = 0; i < categorias.length; i++) {
             modelo.addRow(categorias[i]);
         }
     }
-    public void crearCategoria(String nombre){ 
+
+    public void crearCategoria(String nombre) {
         try {
             // TODO add your handling code here:
             Conexion.crearCategoria(nombre);
-            JOptionPane.showMessageDialog(this,"Se a creado la categoria exitosamente!");
-            actualizarTabla(); 
-        } catch (Exception ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void actualizarTabla(){ 
-       jTabla.repaint();
-    }
-    
-    public void eliminarCategoria(String id){ 
-        try {
-            Conexion.eliminarCategoria(id);
-            JOptionPane.showMessageDialog(this,"Se elimino la categoria exitosamente!");
+            JOptionPane.showMessageDialog(this, "Se a creado la categoria exitosamente!");
             actualizarTabla();
         } catch (Exception ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void actualizarTabla() {
+        jTabla.repaint();
+    }
+
+    public void eliminarCategoria(String id) {
+        try {
+            Conexion.eliminarCategoria(id);
+            JOptionPane.showMessageDialog(this, "Se elimino la categoria exitosamente!");
+            actualizarTabla();
+        } catch (Exception ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,8 +82,8 @@ public class Cliente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        jMnCategorias = new javax.swing.JMenu();
+        jMnMarcas = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Categoria");
@@ -144,11 +146,21 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre");
 
-        jMenu2.setText("Categorias");
-        jMenuBar2.add(jMenu2);
+        jMnCategorias.setText("Categorias");
+        jMenuBar2.add(jMnCategorias);
 
-        jMenu3.setText("Marcas");
-        jMenuBar2.add(jMenu3);
+        jMnMarcas.setText("Marcas");
+        jMnMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMnMarcasMouseClicked(evt);
+            }
+        });
+        jMnMarcas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMnMarcasActionPerformed(evt);
+            }
+        });
+        jMenuBar2.add(jMnMarcas);
 
         setJMenuBar(jMenuBar2);
 
@@ -210,13 +222,25 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTxtIDActionPerformed
 
     private void jBtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCrearActionPerformed
-        crearCategoria(jTxtNombre.getText()); 
+        crearCategoria(jTxtNombre.getText());
     }//GEN-LAST:event_jBtnCrearActionPerformed
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
         // TODO add your handling code here:
-        eliminarCategoria(jTxtID.getText()); 
+        eliminarCategoria(jTxtID.getText());
     }//GEN-LAST:event_jBtnEliminarActionPerformed
+
+    private void jMnMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnMarcasActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jMnMarcasActionPerformed
+
+    private void jMnMarcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMnMarcasMouseClicked
+        // TODO add your handling code here:
+        InterfaceBrands fram2 = new InterfaceBrands();
+        fram2.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMnMarcasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -259,9 +283,9 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JButton jBtnEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenu jMnCategorias;
+    private javax.swing.JMenu jMnMarcas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabla;
     private javax.swing.JTextField jTxtID;
