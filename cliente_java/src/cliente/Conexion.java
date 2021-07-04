@@ -95,7 +95,6 @@ public class Conexion {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 		JSONObject jsonResponse = new JSONObject(response.body());
 		System.out.println(response.body());
-		System.out.println(jsonResponse.getString("error_exists"));
         
     }
     
@@ -153,7 +152,6 @@ public class Conexion {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 		JSONObject jsonResponse = new JSONObject(response.body());
 		System.out.println(response.body());
-		System.out.println(jsonResponse.getString("error_exists"));
         
     }
     
