@@ -95,13 +95,69 @@ public class Conexion {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 		JSONObject jsonResponse = new JSONObject(response.body());
 		System.out.println(response.body());
-		System.out.println(jsonResponse.getString("error_exists"));
         
     }
     
     public static void eliminarCategoria(String id) throws Exception{ 
         String url;
         url = "https://proyecto-tienda-acz.herokuapp.com/catalog/categories/"+id;
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(url))
+                .DELETE()
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+		System.out.println(response.body());
+    }
+    
+    //Methods for Brands
+    
+    public static String [][] getBrands() throws Exception {
+        String url;
+        url = "https://proyecto-tienda-acz.herokuapp.com/catalog/brands";
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(url))
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        
+
+        JSONArray jArray = new JSONArray(response.body());
+        String [][] marcas = new String[jArray.length()][2];
+        
+        for (int i = 0; i < jArray.length(); i++) {
+            JSONObject jsonObj = jArray.getJSONObject(i);
+            Brands brand = new Gson().fromJson(jsonObj.toString(), Brands.class);
+            marcas[i][0] = String.valueOf(brand.getBrand_id());
+            marcas[i][1] = brand.getBrand_name();
+        }
+        return marcas; 
+         
+    }
+    
+    public static void crearMarca(String nombre) throws Exception{ 
+        JSONObject json = new JSONObject(); 
+        json.put("brand_name", nombre); 
+        String url;
+        url = "https://proyecto-tienda-acz.herokuapp.com/catalog/brands";
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(url))
+                .header("Content-Type", "application/json")
+                .POST(BodyPublishers.ofString(json.toString()))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+		JSONObject jsonResponse = new JSONObject(response.body());
+		System.out.println(response.body());
+        
+    }
+    
+    public static void eliminarMarca(String id) throws Exception{ 
+        String url;
+        url = "https://proyecto-tienda-acz.herokuapp.com/catalog/brands/"+id;
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(url))
