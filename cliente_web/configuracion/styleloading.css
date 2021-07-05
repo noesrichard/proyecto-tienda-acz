@@ -1,0 +1,43 @@
+body{
+	margin: 0;
+	padding: 0;
+	background: #fff;
+}
+.hidden{
+	overflow: hidden;
+}
+.centrado{
+height: 100vh;
+background-color: #000;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.box{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 128.5px;
+	height: 97px;
+	background: transparent url("img/s3.png") 0 0 no-repeat;
+	
+	animation: run 1s steps(8) infinite;
+}
+
+@keyframes run
+{
+	100%{
+		background-position: -1025px, 0;
+	}
+}
+
+.tittle{
+	color: #ffffff;
+	width: 100px;
+	height: 50px;
+	top: 70%;
+	left: 15%;
+	position: absolute;
+	font-family: 'Dela Gothic One', cursive;
+}
