@@ -25,7 +25,7 @@ fetch(url)
                     <li class="product-li">
                         <div id="product-img-div">
                             <!--Aqui va la imagen-->
-                            <img src="/img-not-found.png" alt="">
+                            <img src="img/img-not-found.png" alt="">
                         </div>
                         <div id="product-div">
                             <!--Aqui va el contenido del producto-->
@@ -60,7 +60,7 @@ function searchProduct(category="", brand=""){
                     <li class="product-li">
                         <div id="product-img-div">
                             <!--Aqui va la imagen-->
-                            <img src="/img-not-found.png" alt="">
+                            <img src="img/img-not-found.png" alt="">
                         </div>
                         <div id="product-div">
                             <!--Aqui va el contenido del producto-->
@@ -90,7 +90,7 @@ function productDescription(productId){
             <div>
                 <div id="product-img-div">
                     <!--Aqui va la imagen-->
-                    <img src="/img-not-found.png" alt="">
+                    <img src="img/img-not-found.png" alt="">
                 </div>
                 <h1 class='hola'>${data.product.product_name}</h1> 
                 <p>${data.product.product_description}</p>
