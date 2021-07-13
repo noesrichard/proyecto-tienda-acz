@@ -2,7 +2,7 @@ import unittest
 from users.models import User
 from users import validator
 
-
+#Test para la api
 class Test(unittest.TestCase):
 
     def test_valid_username(self):
