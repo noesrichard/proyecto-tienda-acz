@@ -8,7 +8,7 @@ class Test(unittest.TestCase):
     def test_valid_username(self):
         user = User(username="ric.-r")
         result = validator.validate_username(user)
-        self.assertTrue(result)
+        self.assertFalse(result)
 
     def test_valid_password(self):
         user = User(password="12qwe.reu_12")
