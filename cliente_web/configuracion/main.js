@@ -98,7 +98,8 @@ function productDescription(productId) {
                 <h1 class='hola'>${data.product.product_name}</h1> 
                 <p>${data.product.product_description}</p>
                 <h3>$${data.product.product_price}</h3>
-                <input id='loguin' type='button' value='Agregar al carrito' onclick="agregarAlCarrito(${data.product.product_id},${quantity})">
+                <input class='btn' type='button' value='Agregar al carrito' onclick="agregarAlCarrito(${data.product.product_id},${quantity})">
+                <input class='btn' type='button' value='Agregar comentario' onclick="agregarComentario(${data.product.product_id})">
             </div>  
             <h2>Comentarios</h2>
         `
@@ -111,7 +112,7 @@ function productDescription(productId) {
             `
                 if (data.comments[i].username == window.localStorage.getItem("username")) {
                     document.getElementById("comentario-" + i).innerHTML += `
-                    <input type='button' value='Eliminar Comentario' onclick="eliminarComentario(${data.comments[i].comment_id})"> 
+                    <input class='btn-eliminar' type='button' value='Eliminar Comentario' onclick="eliminarComentario(${data.comments[i].comment_id},${data.product.product_id})"> 
                 `
                 }
             }
@@ -136,6 +137,28 @@ function agregarAlCarrito(productId, quantity) {
             console.log(res.status);
             if (res.status == 200 && document.getElementById('carrito-div').innerHTML != "") {
                 cargarCarrito(document.getElementById('carrito-div'))
+            }
+        });
+}
+
+function agregarComentario(productId) {
+    const url = "https://proyecto-tienda-acz.herokuapp.com/catalog/products/" + productId + "/comments";
+    fetch(url, {
+            'method': 'POST',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            },
+            'body': JSON.stringify({
+                'comment_description': "Muy bueno el producto",
+                'comment_qualification': 5
+            })
+        })
+        .then(res => {
+            console.log(res.status);
+            if (res.status == 200) {
+                alert("Se agrego tu comentario correctamente");
+                productDescription(productId);
             }
         });
 }
@@ -172,7 +195,7 @@ function cargarCarrito(divCarrito) {
                 <label>Precio Unitario: ${data[i].product_price}</label><br>    
                 <label>Cantidad: ${data[i].product_quantity}</label><br>    
                 <label>Precio Total: ${data[i].product_price * data[i].product_quantity}</label><br>    
-                <input type='button' value='Eliminar del Carrito' onclick=eliminarDelCarrito(${data[i].cart_id})><br>
+                <input class='btn-eliminar' type='button' value='Eliminar del Carrito' onclick=eliminarDelCarrito(${data[i].cart_id})><br>
             `
                 total += data[i].product_price * data[i].product_quantity;
             }
@@ -224,7 +247,7 @@ function eliminarDelCarrito(carritoId) {
         })
 }
 
-function eliminarComentario(comentarioId) {
+function eliminarComentario(comentarioId, productId) {
     var url = 'https://proyecto-tienda-acz.herokuapp.com/catalog/products/comments/' + comentarioId;
     fetch(url, {
             'method': 'DELETE',
@@ -236,5 +259,6 @@ function eliminarComentario(comentarioId) {
         .then(res => res.json())
         .then(data => {
             alert("Se elimino el comentario correctamente!")
+            productDescription(productId);
         })
 }
