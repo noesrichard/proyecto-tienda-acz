@@ -1,119 +1,100 @@
-body{
-	margin: 0;
-	padding: 0;
-	background: #fff;
-}
-.hidden{
-	overflow: hidden;
+body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
 }
 
-.centrado{
-height: 100vh;
-background-color: #000;
-display: flex;
-justify-content: center;
-align-items: center;
+.hidden {
+    overflow: hidden;
 }
 
-.box{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
-	width: 128.5px;
-	height: 97px;
-	background: transparent url("img/s3.png") 0 0 no-repeat;
-	
-	animation: run 1s steps(8) infinite;
+.centrado {
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes run
-{
-	100%{
-		background-position: -1025px, 0;
-	}
+.box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 128.5px;
+    height: 97px;
+    background: transparent url("img/s3.png") 0 0 no-repeat;
+    animation: run 1s steps(8) infinite;
 }
 
-.tittle{
-	color: #ffffff;
-	width: 100px;
-	height: 50px;
-	top: 70%;
-	left: 15%;
-	position: absolute;
-	font-family: 'Dela Gothic One', cursive;
+@keyframes run {
+    100% {
+        background-position: -1025px, 0;
+    }
+}
+
+.tittle {
+    color: #ffffff;
+    width: 100px;
+    height: 50px;
+    top: 70%;
+    left: 15%;
+    position: absolute;
+    font-family: 'Dela Gothic One', cursive;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
-.nav{
-	margin: 0;
-	background: #222;
-	font-family: 'Work Sans', sans-serif;
-	font-weight: 800;
+.nav {
+    margin: 0;
+    background: #222;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 800;
 }
 
 .container {
-	width: 80%;
-	margin: 0 auto;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .nav {
-  background: #003648;
+    background: #003648;
 }
 
 header::after {
-  content: '';
-  display: table;
-  clear: both;
+    content: '';
+    display: table;
+    clear: both;
 }
 
 .logo {
-  float: left;
-  padding: 10px 0;
+    float: left;
+    padding: 10px 0;
 }
 
 nav {
-  float: right;
+    float: right;
 }
 
 nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 nav li {
-  display: inline-block;
-  margin-left: 70px;
-  padding-top: 23px;
-
-  position: relative;
+    display: inline-block;
+    margin-left: 70px;
+    padding-top: 15px;
+    position: relative;
 }
 
 nav a {
-  color: #fff;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-nav a:hover {
-  color: #000;
-}
-
-nav a::before {
-  content: '';
-  display: block;
-  height: 5px;
-  background-color: #000;
-
-  position: absolute;
-  top: 0;
-  width: 0%;
-
-  transition: all ease-in-out 250ms;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
 }
 
 nav a:hover::before {
-  width: 100%;
+    width: 100%;
 }
