@@ -32,7 +32,8 @@
                     .then(data => {
                         console.log(data.permission);
                         if (data.permission) {
-                            window.localStorage.setItem('auth', auth)
+                            window.localStorage.setItem('auth', auth);
+                            window.localStorage.setItem('username', nombre);
                             location.replace('index.html');
                         }
                     })

@@ -98,7 +98,6 @@ function productDescription(productId) {
                 <h1 class='hola'>${data.product.product_name}</h1> 
                 <p>${data.product.product_description}</p>
                 <h3>$${data.product.product_price}</h3>
-                
                 <input id='loguin' type='button' value='Agregar al carrito' onclick="agregarAlCarrito(${data.product.product_id},${quantity})">
             </div>  
             <h2>Comentarios</h2>
@@ -110,9 +109,9 @@ function productDescription(productId) {
                     <p>${data.comments[i].description}</p>
                 </div>
             `
-                if (data.comments[i].username == "rmcv") {
+                if (data.comments[i].username == window.localStorage.getItem("username")) {
                     document.getElementById("comentario-" + i).innerHTML += `
-                    <input type='button' value='Eliminar Comentario'> 
+                    <input type='button' value='Eliminar Comentario' onclick="eliminarComentario(${data.comments[i].comment_id})"> 
                 `
                 }
             }
@@ -222,5 +221,20 @@ function eliminarDelCarrito(carritoId) {
             } else {
                 console.log('No se pudo borrar el producto!')
             }
+        })
+}
+
+function eliminarComentario(comentarioId) {
+    var url = 'https://proyecto-tienda-acz.herokuapp.com/catalog/products/comments/' + comentarioId;
+    fetch(url, {
+            'method': 'DELETE',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert("Se elimino el comentario correctamente!")
         })
 }
