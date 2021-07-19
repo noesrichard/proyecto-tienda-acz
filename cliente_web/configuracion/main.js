@@ -1,8 +1,11 @@
-var cat_dl = document.getElementById('cat-dl')
-var ol = document.getElementById('product-list')
-var bra_dl = document.getElementById('bra-dl')
+var cat_dl = document.getElementById('cat-dl');
+var ol = document.getElementById('product-list');
+var bra_dl = document.getElementById('bra-dl');
 
-var url = "http://proyecto-tienda-acz.herokuapp.com/catalog"
+var auth = localStorage.getItem("auth");
+
+
+var url = "http://proyecto-tienda-acz.herokuapp.com/catalog";
 fetch(url)
     .then(res => res.json())
     .then(data => {
@@ -119,20 +122,17 @@ function productDescription(productId) {
 function agregarAlCarrito(productId, quantity) {
     console.log("entra");
     const url = "https://proyecto-tienda-acz.herokuapp.com/cart/products";
-    const username = "rmcv";
-    const password = "123";
-    const auth = btoa(username + ":" + password);
     fetch(url, {
-        'method': 'POST',
-        'headers': {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + auth
-        },
-        'body': JSON.stringify({
-            'product': productId,
-            'quantity': quantity
+            'method': 'POST',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            },
+            'body': JSON.stringify({
+                'product': productId,
+                'quantity': quantity
+            })
         })
-    })
         .then(res => {
             console.log(res.status);
             if (res.status == 200 && document.getElementById('carrito-div').innerHTML != "") {
@@ -140,22 +140,28 @@ function agregarAlCarrito(productId, quantity) {
             }
         });
 }
+const btnSalir = document.getElementById("btn-salir");
+btnSalir.addEventListener('click', logout);
+
+function logout() {
+    localStorage.removeItem("auth");
+    auth = ""
+}
+
 const btnCarrito = document.getElementById("btn-carrito");
 btnCarrito.addEventListener('click', abrirCarrito);
+
 function cargarCarrito(divCarrito) {
     divCarrito.style.textAlign = "center";
     divCarrito.innerHTML = "<h1> Carrito </h1>";
     const url = "https://proyecto-tienda-acz.herokuapp.com/cart/products";
-    const username = "rmcv";
-    const password = "123";
-    const auth = btoa(username + ":" + password);
     fetch(url, {
-        'method': 'GET',
-        'headers': {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + auth
-        }
-    })
+            'method': 'GET',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            }
+        })
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -176,12 +182,12 @@ function cargarCarrito(divCarrito) {
             <div id="paypal-button-container"></div>
         `;
             paypal.Buttons({
-                createOrder: function (data, actions) {
+                createOrder: function(data, actions) {
                     // This function sets up the details of the transaction, including the amount and line item details.
                     return actions.order.create({
                         purchase_units: [{
                             amount: {
-                                value: total 
+                                value: total
                             }
                         }]
                     });
@@ -189,6 +195,7 @@ function cargarCarrito(divCarrito) {
             }).render('#paypal-button-container')
         })
 }
+
 function abrirCarrito() {
     const divCarrito = document.getElementById("carrito-div");
     if (divCarrito.innerHTML == "") {
@@ -201,22 +208,18 @@ function abrirCarrito() {
 
 function eliminarDelCarrito(carritoId) {
     var url = 'https://proyecto-tienda-acz.herokuapp.com/cart/products/' + carritoId;
-    const username = "rmcv";
-    const password = "123";
-    const auth = btoa(username + ":" + password);
     fetch(url, {
-        'method': 'DELETE',
-        'headers': {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + auth
-        }
-    })
+            'method': 'DELETE',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            }
+        })
         .then(res => res.json())
         .then(data => {
             if (data.message == "Todo bien") {
                 cargarCarrito(document.getElementById('carrito-div'))
-            }
-            else {
+            } else {
                 console.log('No se pudo borrar el producto!')
             }
         })
