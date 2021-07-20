@@ -5,10 +5,12 @@ var bra_dl = document.getElementById('bra-dl');
 var auth = localStorage.getItem("auth");
 
 
-var url = "http://proyecto-tienda-acz.herokuapp.com/catalog";
+var url = "http://localhost:5000/catalog";
 fetch(url)
     .then(res => res.json())
     .then(data => {
+        console.log("Hola mundo");
+        console.log(data.products[0].product_img_path);
         for (let i = 0; i < data.categories.length; i++) {
             cat_dl.innerHTML +=
                 `
@@ -28,7 +30,7 @@ fetch(url)
                     <li class="product-li">
                         <div id="product-img-div">
                             <!--Aqui va la imagen-->
-                            <img src="img/img-not-found.png" alt="">
+                            <img src="${data.products[i].product_img_path}" alt="">
                         </div>
                         <div id="product-div">
                             <!--Aqui va el contenido del producto-->
