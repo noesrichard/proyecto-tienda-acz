@@ -5,7 +5,7 @@ var bra_dl = document.getElementById('bra-dl');
 var auth = localStorage.getItem("auth");
 
 
-var url = "http://localhost:5000/catalog";
+var url = "http://proyecto-tienda-acz.herokuapp.com/catalog";
 fetch(url)
     .then(res => res.json())
     .then(data => {
@@ -30,7 +30,7 @@ fetch(url)
                     <li class="product-li">
                         <div id="product-img-div">
                             <!--Aqui va la imagen-->
-                            <img src="${data.products[i].product_img_path}" alt="">
+                            <img src="img/img-not-found.png" alt="">
                         </div>
                         <div id="product-div">
                             <!--Aqui va el contenido del producto-->
