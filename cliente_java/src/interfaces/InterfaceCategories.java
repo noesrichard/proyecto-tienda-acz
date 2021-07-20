@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cliente;
+package interfaces;
 
+import cliente.Conexion;
+import interfaces.InterfaceBrands;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -14,17 +16,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author zapju
  */
-public class Cliente extends javax.swing.JFrame {
-
+public class InterfaceCategories extends javax.swing.JFrame {
+	
+	Conexion conexion; 
     /**
      * Creates new form Cliente
      */
-    public Cliente() {
+    public InterfaceCategories() {
         initComponents();
+		this.conexion = new Conexion(); 
         try {
             llenarTabla();
         } catch (Exception ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InterfaceCategories.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -32,7 +36,7 @@ public class Cliente extends javax.swing.JFrame {
         //Este metodo carga desde la API la tabla
         //Recive una matriz y lo carga por filas en un ciclo
         DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel();
-        String[][] categorias = Conexion.getCategories();
+        String[][] categorias = this.conexion.getCategories();
         for (int i = 0; i < categorias.length; i++) {
             modelo.addRow(categorias[i]);
         }
@@ -41,11 +45,11 @@ public class Cliente extends javax.swing.JFrame {
     public void crearCategoria(String nombre) {
         try {
             // TODO add your handling code here:
-            Conexion.crearCategoria(nombre);
+            this.conexion.crearCategoria(nombre);
             JOptionPane.showMessageDialog(this, "Se a creado la categoria exitosamente!");
             actualizarTabla();
         } catch (Exception ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InterfaceCategories.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -55,11 +59,11 @@ public class Cliente extends javax.swing.JFrame {
 
     public void eliminarCategoria(String id) {
         try {
-            Conexion.eliminarCategoria(id);
+            this.conexion.eliminarCategoria(id);
             JOptionPane.showMessageDialog(this, "Se elimino la categoria exitosamente!");
             actualizarTabla();
         } catch (Exception ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InterfaceCategories.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -259,20 +263,21 @@ public class Cliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceCategories.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceCategories.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceCategories.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceCategories.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cliente().setVisible(true);
+                new InterfaceCategories().setVisible(true);
             }
         });
     }

@@ -39,6 +39,10 @@ class Product:
         self.__quantity = kwargs.get('product_quantity_available')
         self.__category = kwargs.get('category_id')
         self.__brand = kwargs.get('brand_id')
+        self.__img_path = kwargs.get('product_img_path')
+
+    def get_img_path(self):
+        return self.__img_path
 
     def get_id(self):
         return self.__id

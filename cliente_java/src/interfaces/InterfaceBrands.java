@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cliente;
+package interfaces;
 
+import cliente.Conexion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -15,11 +16,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class InterfaceBrands extends javax.swing.JFrame {
 
+	Conexion conexion; 
 	/**
 	 * Creates new form InterfaceBrands
 	 */
 	public InterfaceBrands() {
 		initComponents();
+		this.conexion = new Conexion(); 
 		try {
 			cargarMarcas();
 		} catch (Exception ex) {
@@ -31,7 +34,7 @@ public class InterfaceBrands extends javax.swing.JFrame {
 		DefaultTableModel modelo;
 		String[] titulo = {"ID", "Nombre"};
 		modelo = new DefaultTableModel(null, titulo);
-		String[][] marcas = Conexion.getBrands();
+		String[][] marcas = this.conexion.getBrands();
 		for (int i = 0; i < marcas.length; i++) {
 			modelo.addRow(marcas[i]);
 		}
@@ -204,7 +207,7 @@ public class InterfaceBrands extends javax.swing.JFrame {
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
 	    // TODO add your handling code here:
-	    Cliente frame1 = new Cliente();
+	    InterfaceCategories frame1 = new InterfaceCategories();
 	    frame1.setVisible(true);
 	    this.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked

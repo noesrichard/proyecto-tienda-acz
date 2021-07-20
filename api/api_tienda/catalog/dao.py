@@ -76,7 +76,8 @@ class ProductDataAccessObject(DataAccessObject):
             'price': 'product.pri_pro as product_price',
             'ava': 'product.ava_pro as product_quantity_available',
             'id_cat': 'product.id_cat_pro as category_id',
-            'id_bra': 'product.id_bra_pro as brand_id'
+            'id_bra': 'product.id_bra_pro as brand_id',
+            'img_pro': 'product.img_pro as product_img_path'
         }
 
     def __all_columns(self):
