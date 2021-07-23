@@ -1,72 +1,77 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>ACZ</title>
-	<script src="js/jquery35.js"></script>
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Shojumaru&display=swap" rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <title>ACZ</title>
+    <script src="js/jquery35.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Shojumaru&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
 </head>
 <script type="text/javascript">
-	history.forward();
-	$(document).ready(function(){
-		      $("#loguin").click(function(){
-                var nombre = $("#nombre").val();
-                var clave = $("#clave").val();
-                  if(nombre != "" || clave != ""){
-                      var auth = btoa(nombre+':'+clave); 
-                      var local_url = 'http://127.0.0.1:5000/user/login';
-                      var url = 'http://proyecto-tienda-acz.herokuapp.com/user/login';
-                      fetch(url, {
-                             method: 'POST', 
-                             headers: {'Content-Type': 'application/json',
-                                      'Authorization': 'Basic '+ auth
-                             }
-                        })
-                         .then(res => res.json())
-                         .then(data => { 
-                             console.log(data.permission); 
-                             if (data.permission){ 
-                                 window.localStorage.setItem('auth',auth)
-                                 location.replace('index.html'); 
-                             }
-                         })
-                         .then(error => console.log(error))
-                  }
-               
-            });
+    history.forward();
+    $(document).ready(function() {
+        $("#loguin").click(function() {
+            var nombre = $("#nombre").val();
+            var clave = $("#clave").val();
+            if (nombre != "" || clave != "") {
+                var auth = btoa(nombre + ':' + clave);
+                var local_url = 'http://127.0.0.1:5000/user/login';
+                var url = 'http://proyecto-tienda-acz.herokuapp.com/user/login';
+                fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Basic ' + auth
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data.permission);
+                        if (data.permission) {
+                            window.localStorage.setItem('auth', auth);
+                            window.localStorage.setItem('username', nombre);
+                            location.replace('index.html');
+                        }
+                    })
+                    .then(error => console.log(error))
+            }
+
         });
+    });
 </script>
+
 <body>
-<section id="divisor">
-	<div class="left">
-		<p class="tittle">
-			
-		</p>
-	</div>
-	<div class="right">
-		<p class="tittle">
-			ACZ
-		</p>
-		<div class="box">
-		
-		</div>
-		<div class="loginbox">
-			<img src="img/stb.jpg" class="avatar">
-			<h1 class="letter">Entra Aqui!</h1>
-			<form>
-				<p class="p">Username</p>
-				<input type="text"  id="nombre" name="nombre" placeholder="Enter Username">
-				<p class="letterp">Password</p>
-				<input type="Password"  id="clave" name="clave" placeholder="Enter Password">
-				<a href='index.html'><input type="button"  id="loguin" name="loguin" value="Login" class="btn" ></a>
-				<a href="registro.html">Crea tu Cuenta Aqui</a><br>
-			</form>
-		</div>
-	</div>
-</section>
+    <section id="divisor">
+        <div class="left">
+            <p class="tittle">
+
+            </p>
+        </div>
+        <div class="right">
+            <p class="tittle">
+                ACZ
+            </p>
+            <div class="box">
+
+            </div>
+            <div class="loginbox">
+                <img src="img/stb.jpg" class="avatar">
+                <h1 class="letter">Entra Aqui!</h1>
+                <form>
+                    <p class="p">Username</p>
+                    <input type="text" id="nombre" name="nombre" placeholder="Enter Username">
+                    <p class="letterp">Password</p>
+                    <input type="Password" id="clave" name="clave" placeholder="Enter Password">
+                    <input type="button" id="loguin" name="loguin" value="Login" class="btn">
+                    <a href="registro.html">Crea tu Cuenta Aqui</a><br>
+                </form>
+            </div>
+        </div>
+    </section>
 </body>
+
 </html>

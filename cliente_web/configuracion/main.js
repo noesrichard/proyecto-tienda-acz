@@ -1,11 +1,16 @@
-var cat_dl = document.getElementById('cat-dl')
-var ol = document.getElementById('product-list')
-var bra_dl = document.getElementById('bra-dl')
+var cat_dl = document.getElementById('cat-dl');
+var ol = document.getElementById('product-list');
+var bra_dl = document.getElementById('bra-dl');
 
-var url = "http://proyecto-tienda-acz.herokuapp.com/catalog"
+var auth = localStorage.getItem("auth");
+
+
+var url = "http://proyecto-tienda-acz.herokuapp.com/catalog";
 fetch(url)
     .then(res => res.json())
     .then(data => {
+        console.log("Hola mundo");
+        console.log(data.products[0].product_img_path);
         for (let i = 0; i < data.categories.length; i++) {
             cat_dl.innerHTML +=
                 `
@@ -95,8 +100,8 @@ function productDescription(productId) {
                 <h1 class='hola'>${data.product.product_name}</h1> 
                 <p>${data.product.product_description}</p>
                 <h3>$${data.product.product_price}</h3>
-                
-                <input id='loguin' type='button' value='Agregar al carrito' onclick="agregarAlCarrito(${data.product.product_id},${quantity})">
+                <input class='btn' type='button' value='Agregar al carrito' onclick="agregarAlCarrito(${data.product.product_id},${quantity})">
+                <input class='btn' type='button' value='Agregar comentario' onclick="agregarComentario(${data.product.product_id})">
             </div>  
             <h2>Comentarios</h2>
         `
@@ -107,9 +112,9 @@ function productDescription(productId) {
                     <p>${data.comments[i].description}</p>
                 </div>
             `
-                if (data.comments[i].username == "rmcv") {
+                if (data.comments[i].username == window.localStorage.getItem("username")) {
                     document.getElementById("comentario-" + i).innerHTML += `
-                    <input type='button' value='Eliminar Comentario'> 
+                    <input class='btn-eliminar' type='button' value='Eliminar Comentario' onclick="eliminarComentario(${data.comments[i].comment_id},${data.product.product_id})"> 
                 `
                 }
             }
@@ -119,20 +124,17 @@ function productDescription(productId) {
 function agregarAlCarrito(productId, quantity) {
     console.log("entra");
     const url = "https://proyecto-tienda-acz.herokuapp.com/cart/products";
-    const username = "rmcv";
-    const password = "123";
-    const auth = btoa(username + ":" + password);
     fetch(url, {
-        'method': 'POST',
-        'headers': {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + auth
-        },
-        'body': JSON.stringify({
-            'product': productId,
-            'quantity': quantity
+            'method': 'POST',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            },
+            'body': JSON.stringify({
+                'product': productId,
+                'quantity': quantity
+            })
         })
-    })
         .then(res => {
             console.log(res.status);
             if (res.status == 200 && document.getElementById('carrito-div').innerHTML != "") {
@@ -140,22 +142,50 @@ function agregarAlCarrito(productId, quantity) {
             }
         });
 }
+
+function agregarComentario(productId) {
+    const url = "https://proyecto-tienda-acz.herokuapp.com/catalog/products/" + productId + "/comments";
+    fetch(url, {
+            'method': 'POST',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            },
+            'body': JSON.stringify({
+                'comment_description': "Muy bueno el producto",
+                'comment_qualification': 5
+            })
+        })
+        .then(res => {
+            console.log(res.status);
+            if (res.status == 200) {
+                alert("Se agrego tu comentario correctamente");
+                productDescription(productId);
+            }
+        });
+}
+const btnSalir = document.getElementById("btn-salir");
+btnSalir.addEventListener('click', logout);
+
+function logout() {
+    localStorage.removeItem("auth");
+    auth = ""
+}
+
 const btnCarrito = document.getElementById("btn-carrito");
 btnCarrito.addEventListener('click', abrirCarrito);
+
 function cargarCarrito(divCarrito) {
     divCarrito.style.textAlign = "center";
     divCarrito.innerHTML = "<h1> Carrito </h1>";
     const url = "https://proyecto-tienda-acz.herokuapp.com/cart/products";
-    const username = "rmcv";
-    const password = "123";
-    const auth = btoa(username + ":" + password);
     fetch(url, {
-        'method': 'GET',
-        'headers': {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + auth
-        }
-    })
+            'method': 'GET',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            }
+        })
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -167,7 +197,7 @@ function cargarCarrito(divCarrito) {
                 <label>Precio Unitario: ${data[i].product_price}</label><br>    
                 <label>Cantidad: ${data[i].product_quantity}</label><br>    
                 <label>Precio Total: ${data[i].product_price * data[i].product_quantity}</label><br>    
-                <input type='button' value='Eliminar del Carrito' onclick=eliminarDelCarrito(${data[i].cart_id})><br>
+                <input class='btn-eliminar' type='button' value='Eliminar del Carrito' onclick=eliminarDelCarrito(${data[i].cart_id})><br>
             `
                 total += data[i].product_price * data[i].product_quantity;
             }
@@ -176,12 +206,12 @@ function cargarCarrito(divCarrito) {
             <div id="paypal-button-container"></div>
         `;
             paypal.Buttons({
-                createOrder: function (data, actions) {
+                createOrder: function(data, actions) {
                     // This function sets up the details of the transaction, including the amount and line item details.
                     return actions.order.create({
                         purchase_units: [{
                             amount: {
-                                value: total 
+                                value: total
                             }
                         }]
                     });
@@ -189,6 +219,7 @@ function cargarCarrito(divCarrito) {
             }).render('#paypal-button-container')
         })
 }
+
 function abrirCarrito() {
     const divCarrito = document.getElementById("carrito-div");
     if (divCarrito.innerHTML == "") {
@@ -201,23 +232,35 @@ function abrirCarrito() {
 
 function eliminarDelCarrito(carritoId) {
     var url = 'https://proyecto-tienda-acz.herokuapp.com/cart/products/' + carritoId;
-    const username = "rmcv";
-    const password = "123";
-    const auth = btoa(username + ":" + password);
     fetch(url, {
-        'method': 'DELETE',
-        'headers': {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + auth
-        }
-    })
+            'method': 'DELETE',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            }
+        })
         .then(res => res.json())
         .then(data => {
             if (data.message == "Todo bien") {
                 cargarCarrito(document.getElementById('carrito-div'))
-            }
-            else {
+            } else {
                 console.log('No se pudo borrar el producto!')
             }
+        })
+}
+
+function eliminarComentario(comentarioId, productId) {
+    var url = 'https://proyecto-tienda-acz.herokuapp.com/catalog/products/comments/' + comentarioId;
+    fetch(url, {
+            'method': 'DELETE',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert("Se elimino el comentario correctamente!")
+            productDescription(productId);
         })
 }

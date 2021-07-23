@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cliente;
+package entities;
 
 /**
  *
  * @author zapju
  */
-public class Brands {
+public class Brand {
     private int brand_id;
     private String brand_name;
 

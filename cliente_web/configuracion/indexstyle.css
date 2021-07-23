@@ -1,0 +1,169 @@
+* {
+    font-family: sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+header {
+    background: white;
+    width: 100%;
+    text-align: center;
+}
+
+footer {
+    background: green;
+}
+
+img.center {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+div.top-right {
+    text-align: right;
+}
+
+nav li a.nav-text:hover {
+    color: orange;
+}
+
+nav li {
+    padding-bottom: 10px;
+}
+
+ul.nav-ul {
+    background-color: #003648;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    width: 100%;
+    text-align: center;
+    background-color: #003648;
+}
+
+nav a::before {
+    content: '';
+    display: block;
+    height: 5px;
+    background-color: orange;
+    position: absolute;
+    top: 0;
+    width: 0%;
+    transition: all ease-in-out 250ms;
+}
+
+.blue-btn {
+    background-color: #003648;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+aside.cat-bra {
+    float: left;
+    padding-right: 130px;
+    margin-bottom: 50px;
+}
+
+ol {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+ol li {
+    list-style-type: none;
+}
+
+#product-title {
+    text-decoration: none;
+    color: black;
+}
+
+#product-img-div {
+    width: 200px;
+    padding: 0%;
+}
+
+#product-div {
+    width: 200px;
+}
+
+section {
+    float: left;
+    padding: 20px;
+    width: 80%;
+}
+
+#product-div h2 {
+    text-align: center;
+}
+
+#product-div h4 {
+    text-align: right;
+    margin-right: 10%;
+}
+
+dd {
+    padding: 10px;
+}
+
+dd:hover {
+    background-color: #003648;
+    color: white;
+}
+
+dt {
+    padding: 10px;
+    background-color: #003648;
+    text-align: center;
+    color: white;
+}
+
+.btn {
+    margin-top: 20px;
+    width: 200px;
+    height: 50px;
+    border-radius: 40px;
+    outline: none;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    background: #fff;
+    color: #000;
+    box-shadow: 8px 10px 30px rgba(0, 0, 0, 0.329);
+    transition: 0.4s;
+}
+
+.btn:hover {
+    background: #003648;
+    color: #fff;
+}
+
+.btn-eliminar {
+    margin-top: 20px;
+    width: 200px;
+    height: 50px;
+    border-radius: 40px;
+    outline: none;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    background: #fff;
+    color: #000;
+    box-shadow: 8px 10px 30px rgba(0, 0, 0, 0.329);
+    transition: 0.4s;
+}
+
+.btn-eliminar:hover {
+    background: red;
+    color: #fff;
+}

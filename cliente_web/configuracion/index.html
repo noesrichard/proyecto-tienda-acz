@@ -1,200 +1,61 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<title></title>
-	<script src="js/jquery35.js"></script>
-	<link rel="stylesheet" type="text/css" href="styleloading.css">
-	<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
-	<script src="codigo.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="js/jquery35.js"></script>
+    <link rel="stylesheet" type="text/css" href="styleloading.css">
+    <link rel="stylesheet" href="indexstyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+    <script src="codigo.js"></script>
 </head>
+
 <body class="hidden">
-
-	<div class="centrado" id="onload">
-	<div class="box">
-	<div class="tittle">
-		<p>Cargando</p>
-</div>
-</div>
-</div>
-
+    <div class="centrado" id="onload">
+        <div class="box">
+            <div class="tittle">
+                <p>Cargando</p>
+            </div>
+        </div>
+    </div>
 </body>
- <style>
-        * {
-            font-family: sans-serif;
-        }
-
-        a {
-            text-decoration: none;
-        }
-        a:hover{ 
-            cursor:pointer;
-        }
-
-        header {
-            background: white;
-            width: 100%;
-            text-align: center;
-        }
-
-        footer {
-            background: green;
-        }
-
-        img.center {
-            display: inline-block;
-            margin: 0 auto;
-        }
-
-        div.top-right {
-            text-align: right;
-        }
-
-        ul.nav-ul {
-            background-color: black;
-            padding: 10px;
-            text-align: center;
-        }
-
-        ul.nav-ul li {
-            display: inline;
-        }
-
-        li a.nav-text {
-            color: white;
-            padding: 8px;
-            text-decoration: none;
-        }
-
-        li a.nav-text:hover {
-            background-color: gray;
-        }
-
-        .blue-btn {
-            background-color: #003648;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer; 
-        }
-
-        aside.cat-bra {
-            float: left;
-            padding-right: 130px;
-            margin-bottom: 50px;
-        }
-        ol{
-            display:grid; 
-            grid-template-columns: repeat(4,1fr);
-        }
-
-        ol li {
-            list-style-type: none;
-        }
-
-        #product-title {
-            text-decoration: none;
-            color: black;
-        }
-
-        #product-img-div {
-            width: 200px;
-            padding: 0%;
-        }
-
-        #product-div {
-            width: 200px;
-        }
-
-        section {
-            float: left;
-            padding: 20px;
-            width: 80%;
-        }
-
-        #product-div h2 {
-            text-align: center;
-        }
-
-        #product-div h4 {
-            text-align: right;
-            margin-right: 10%;
-        }
-        dd{ 
-            padding: 10px; 
-        }
-        dd:hover{
-            background-color: #003648;
-            color: white;
-        }
-        dt{ 
-            padding: 10px; 
-            background-color: #003648 ;
-            text-align: center;
-            color: white; 
-        }
-    </style>
-
-</head>
 
 <body>
     <div class="top-right">
-       <!-- <input type="button" class="blue-btn" onclick="location.href='https://facebook.com/'" value="Iniciar Sesion">-->
-       <!--<a href="login.html"><input type="button" class="blue-btn" value="Salir"></a>-->
     </div>
     <header>
-
         <!-- Cabezar con imagen y login button-->
         <img class="center" src="img/header-img-mod.png" alt="">
     </header>
-    <!--<nav>
-        <!-- Navegador para ir a las diferentes secciones-->
-       <!-- <ul class="nav-ul">
-            <li>
-                <a class="nav-text" href="">Inicio</a>
-            </li>
-            <li>
-                <a class="nav-text" href="">Productos</a>
-            </li>
-            <li>
-                <a class="nav-text" href="">Contactanos</a>
-            </li>
-            <li>
-                <input id="btn-carrito" class="blue-btn" type="button" value="Carrito">
-            </li>
-        </ul>
-    </nav>-->
-    <header class="nav">
-    <div class="container">
-      <h1 class="logo"></h1>
 
-      <nav>
-        <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="">Productos</a></li>
-          <li><a href="#">Contactanos</a></li>
-          <li id='btn-carrito'><a href="#">Carrito </a></li>
-          <li><a href="login.html">Salir</a></li>
+    <nav>
+        <ul class="nav-ul">
+            <li><a class="nav-text" href="#">Inicio</a></li>
+            <li><a class="nav-text" href="">Productos</a></li>
+            <li><a class="nav-text" href="#">Contactanos</a></li>
+            <li><a class="nav-text" href="login.html">Iniciar Sesion</a></li>
+            <li id='btn-salir'><a class="nav-text">Salir</a></li>
+            <li id='btn-carrito'><a class="nav-text">Carrito </a></li>
         </ul>
-      </nav>
-    </div>
-  </header>
+    </nav>
+
     <div id="carrito-div">
-        
     </div>
+
     <div id="root">
         <aside id="aside-cat-bra" class="cat-bra">
-            
+
             <!--Barra lateral con categorias y marcas para filtrar-->
             <dl id="cat-dl">
                 <!-- Descrption list -->
-                <dt >Categoria</dt>
-                
+                <dt>Categoria</dt>
+
             </dl>
             <dl id="bra-dl">
                 <!-- Descrption list -->
                 <dt>Marca</dt>
-                
+
             </dl>
         </aside>
         <section>
@@ -205,8 +66,8 @@
 
 </body>
 <script src="main.js"></script>
-<script
-    src="https://www.paypal.com/sdk/js?client-id=Aa8Rj2h9uU7zB7XarSVtz9CUE_O4k-k-RqPBW_XjM1kNyvYdGYPCxJltSmRWRatKuSlUJfy9DmJ4Tf7p"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+<script src="https://www.paypal.com/sdk/js?client-id=Aa8Rj2h9uU7zB7XarSVtz9CUE_O4k-k-RqPBW_XjM1kNyvYdGYPCxJltSmRWRatKuSlUJfy9DmJ4Tf7p">
+    // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
 </script>
 
 </html>
