@@ -1,5 +1,5 @@
 
-
+#Comentario
 class Comment:
     def __init__(self, **kwargs):
         self.__comment_id = kwargs.get('comment_id')
